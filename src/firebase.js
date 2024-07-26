@@ -7,7 +7,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, se
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBQi4bI-FJS12837XZIXRLYZ8afRoAVVU4",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "task-prioritizer-c4bd1.firebaseapp.com",
   projectId: "task-prioritizer-c4bd1",
   storageBucket: "task-prioritizer-c4bd1.appspot.com",
