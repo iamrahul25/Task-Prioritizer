@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <title>Login Page</title>
+    
+    <title>SignUp Page</title>
 
     <style>
         * {
 
-            --color-blue: #5292e5;
+            --color-blue: rgb(9, 9, 9);
             --color-blue-light: #3696FF;
 
             --color-cyan: #fad97d;
@@ -37,7 +37,7 @@
             flex-direction: column;
         }
 
-        .login-page-div {
+        .signup-page-div {
             background-color: var(--color-blue);
             color: white;
 
@@ -59,40 +59,40 @@
             box-shadow: 7px 9px 10px 1px rgba(7, 0, 0, 0.2);
         }
 
-        .login-page-div .heading{
+        .signup-page-div .heading{
             font-size: 24px;
             margin-bottom: 10px;
         }
 
-        .login-page-div .heading::after{
+        .signup-page-div .heading::after{
             content: '';
             display: block;
             width: 50px;
             height: 5px;
-            background-color: black;
+            background-color: red;
             margin: 5px 10px;
         }
 
-        .login-page-div .para{
+        .signup-page-div .para{
             font-size: 14px;
             margin: 0px 10px;
             margin-bottom: 20px;
         }
 
 
-        .login-page-div .image-div{
+        .signup-page-div .image-div{
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .login-page-div .image{
-            width: 190px;
+        .signup-page-div .image{
+            width: 200px;
             height: auto;
         }
 
-        .login-page-div .input-div{
+        .signup-page-div .input-div{
             width: 100%;
             display: flex;
             justify-content: center;
@@ -106,25 +106,25 @@
             
         }
 
-        .login-page-div .input-div:hover{
-            border: 1px solid black;
+        .signup-page-div .input-div:hover{
+            border: 1px solid red;
         }
 
-        .login-page-div .icon{
+        .signup-page-div .icon{
             color: rgb(27, 24, 24);
         }
 
-        .login-page-div .input-field{
+        .signup-page-div .input-field{
             width: 100%;
             padding: 5px 7px;
             border: none;
         }
 
-        .login-page-div .input-field:focus{
+        .signup-page-div .input-field:focus{
             outline: none;
         }
 
-        .login-page-div .button{
+        .signup-page-div .button{
             
             font-weight: bold;
             width: 100%;
@@ -142,20 +142,20 @@
 
         }
 
-        .login-page-div .button:hover{
-            border: 2px solid black;
+        .signup-page-div .button:hover{
+            border: 2px solid orange;
         }
 
-        .login-page-div .para2{
+        .signup-page-div .para2{
             margin-top: 20px;
             font-size: 14px;
-            color: black;
+            color: white;
         }
 
-        .login-page-div .para2 a{
+        .signup-page-div .para2 a{
             font-weight: bold;
             font-size: 14px;
-            color: black;
+            color: white;
         }
 
     </style>
@@ -163,12 +163,12 @@
 </head>
 
 <body>
-    <div class="login-page-div">
+    <div class="signup-page-div">
         <div class="image-div">
-            <img class="image" src="images/img-login-page.png" alt="">
+            <img class="image" src="images/img-signup-page.png" alt="">
         </div>
 
-        <h2 class="heading">Login</h2>
+        <h2 class="heading">Sign Up</h2>
         <p class="para">
             Hello, wecome back!
         </p>
@@ -183,7 +183,12 @@
             <input class="input-field" placeholder="Password" type="password" name="" id="">
         </div>
 
-        <button class="button">Login</button>
+        <div class="input-div">
+            <i class="icon fa-solid fa-lock"></i>
+            <input class="input-field" placeholder="Confirm Password" type="password" name="" id="">
+        </div>
+
+        <button class="button">Sign Up </button>
 
         <p class="para para2">
             Don't have an account? <a href="#">Sign Up</a>

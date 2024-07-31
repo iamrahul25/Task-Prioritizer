@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Task Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+            --background-color: #F3F0E7;
+            --green-color-light: #10B981;
+            --green-color-dark: #0EA271;
+
+            --grey-color-light: #D1D5DB;
+            --grey-color-dark: #9CA3AF;
+
+            --blue-color-light: #3B4CE2;
+            --blue-color-dark: #2538DF;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            height: 100vh;
+            width: 100%;
+
+            background-color: var(--background-color);
+        }
+
+        .task-types-div {
+            max-width: 350px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        .task-types-div h1::after{
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background-color: darkorange;
+            margin: 5px 5px;
+        }
+
+        .task-types-items {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+
+        }
+        .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .span-total {
+            font-size: 12px;
+            background-color: #2F75FF;
+            color: white;
+            padding: 3px 5px;
+            border-radius: 5px;
+        }
+
+
+        .task-types-items .button1 {
+            padding: 7px 12px;
+            border-radius: 7px;
+            width: 100%;
+
+            font-weight: 500;
+            border: 2px solid var(--green-color-light);
+            background-color: var(--green-color-light);
+            color: white;
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .task-types-items .button1:hover {
+            background-color: var(--green-color-dark);
+            color: white;
+        }
+
+        .task-types-items .button2 {
+            padding: 7px 12px;
+            border-radius: 7px;
+            width: 100%;
+
+            font-weight: 500;
+            border: 2px solid var(--blue-color-light);
+            background-color: var(--blue-color-light);
+            color: white;
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .task-types-items .button2:hover {
+            background-color: var(--blue-color-dark);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    
+
+    <div class="task-types-div">
+
+        <h1>Task Prioritizer</h1>
+        <br>
+
+        <div class="task-types-items">
+            <button class="button1"> <i class="green-color fa-solid fa-plus"></i> Create New Task!</button>
+        </div>
+        <hr>
+
+        <div class="task-types-items">
+            <button class="button2"> <i class="fa-solid fa-magnifying-glass"></i> Search / Filter Task!</button>
+        </div>
+        <hr>
+
+        <div class="task-types-items">
+            <span>Show Task (Completed)</span>
+            <span class="span-total">15 Total</span>
+        </div>
+        <hr>
+
+        <div class="task-types-items">
+            <span>Show Task (Not completed)</span>
+            <span class="span-total">3 Total</span>
+        </div>
+        <hr>
+
+        <div class="task-types-items">
+            <span>Show Tasks (Deadline miss)</span>
+            <span class="span-total">8 Total</span>
+        </div>
+        <hr>
+
+    </div>
+</body>
+</html>

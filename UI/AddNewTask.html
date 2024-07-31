@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="https://unpkg.com/nice-forms.css@0.1.7/dist/nice-forms.css" /> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <title>Add New Task</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+            /* border: 1px solid red; */
+
+            --background-color: #F3F0E7;
+
+            --voilet-color-light: #3B4CE2; 
+            --voilet-color-dark: #2538DF;
+
+            --green-color-light: #10B981;
+            --green-color-dark: #0EA271;
+
+            --grey-color-light: #D1D5DB;
+            --grey-color-dark: #9CA3AF;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            height: 100vh;
+            width: 100%;
+
+            background-color: var(--background-color);
+        }
+
+        .input-form {
+            background-color: white;
+            border-radius: 10px;
+
+            max-width: 460px;
+            width: 100%;
+            height: auto;
+
+            padding: 25px;
+
+            box-shadow: 2px 2px 10px 0px rgba(7, 0, 0, 0.2);
+        }
+
+        .input-field-div {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            margin: 10px 0;
+        }
+
+        .input-field-div-two-divs {
+            display: flex;
+            gap: 20px;
+        }
+
+        @media screen and (max-width: 380px) {
+            .input-field-div-two-divs {
+                flex-direction: column;
+            }
+        }
+
+        .input-field-div .input-field {
+            
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 1px 1px #ccc;
+        }
+
+        .input-field-div .input-field:focus{
+            outline: none;
+            box-shadow: 1px 1px var(--voilet-color-light);
+            border: 1px solid var(--voilet-color-light);
+        }
+
+        .input-field-div label{
+            font-weight: 500;
+            font-size: 14px;
+
+        }
+
+        .input-field-div .date{
+            padding: 9px;
+        }
+
+        .input-field-div .radio-option-div{
+            margin-top: 5px;
+        }
+
+        .input-field-div input[type="radio"]{
+            transform: scale(1.4);
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .input-field-div input[type="radio"]:checked{
+            accent-color: var(--voilet-color-light);
+            
+        }
+
+        .input-field-div .light-label{
+            font-weight: 400;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .input-field-div-two-divs .button1{
+            padding: 10px;
+            border: none;
+
+            border-radius: 7px;
+            background-color: var(--green-color-light);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .input-field-div-two-divs .button1:hover{
+            background-color: var(--green-color-dark);
+        }
+
+        .input-field-div-two-divs .button2{
+            padding: 10px;
+            border-radius: 7px;
+
+            font-weight: 500;
+            border: 2px solid var(--grey-color-dark);
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .input-field-div-two-divs .button2:hover{
+            border: 2px solid var(--grey-color-light);
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <form class="input-form">
+
+        <div>
+            <h2><i class="fa-solid fa-list-check"></i> Task Prioritizer </h2>
+            <br>
+            <p>Create your new Task!</p>
+        </div>
+
+
+        <div class="input-field-div">
+            <label>Task</label>
+            <input class="input-field" type="text" placeholder="Eg: Make Food" value="" />
+        </div>
+
+
+        <div class="input-field-div">
+            <label>Duration (Hours)</label>
+            <input class="input-field"  type="text" placeholder="Eg: 2" value="">
+        </div>
+
+        <div class="input-field-div-two-divs">
+
+            <div class="input-field-div">
+                <label>Deadline (Date)</label>
+                <input  class="input-field date"  type="date" value="" />
+                <small>Eg: 12/31/2024</small>
+            </div>
+
+            <div class="input-field-div">
+                <label>Priority No.</label>
+                <input class="input-field"  type="number" placeholder="Eg: 10" value="">
+                <small>Higher no. = More priority</small>
+            </div>
+
+        </div>
+
+        <div class="input-field-div-two-divs">
+
+            <div class="input-field-div">
+
+                <label>Importance</label>
+
+                <div class="radio-option-div">
+                    <input type="radio" name="importance" id="imp" />
+                    <label class="light-label" for="imp">Important</label>
+                </div>
+
+                <div class="radio-option-div">
+                    <input type="radio" name="importance" id="not-imp" />
+                    <label class="light-label"  for="not-imp">Not Important</label>
+                </div>
+            </div>
+
+            <div class="input-field-div">
+                <label>Urgency</label>
+
+                <div class="radio-option-div">
+                    <input type="radio" name="urgency" id="urgent" />
+                    <label class="light-label"  for="urgent">Urgent</label>
+                </div>
+
+                <div class="radio-option-div">
+                    <input type="radio" name="urgency" id="not-urgent" />
+                    <label class="light-label"  for="not-urgent">Not Urgent</label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="input-field-div">
+            <label>Type Keywords</label>
+            <textarea class="input-field" placeholder="Eg: todo, food, freetime" rows="3"></textarea>
+            <small>Enter comma seperated keywords</small>
+            <br>
+        </div>
+
+        <div class="input-field-div-two-divs">
+            <button class="button1"> 
+                <i class="fa-solid fa-plus"></i>  
+                Add Task 
+            </button>
+
+            <button class="button2"> 
+                Cancel
+            </button>
+        </div>
+        
+
+    </form>
+
+
+</body>
+
+</html>
