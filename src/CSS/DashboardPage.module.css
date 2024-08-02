@@ -1,0 +1,98 @@
+.dashboard_page_div {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard_page_div h1::after{
+    content: '';
+    display: block;
+    width: 100px;
+    height: 5px;
+    background-color: darkorange;
+    margin: 5px 5px;
+}
+
+.dashboard_page_div .task_types_items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 10px 0;
+
+}
+.dashboard_page_div .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dashboard_page_div .span_total {
+    font-size: 12px;
+    background-color: #2F75FF;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 5px;
+}
+
+
+.dashboard_page_div .task_types_items .button1 {
+    padding: 7px 12px;
+    border-radius: 7px;
+    width: 100%;
+
+    font-weight: 500;
+    border: 2px solid #10B981;
+    background-color: #10B981;
+    color: white;
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.dashboard_page_div .task_types_items .button1:hover {
+    background-color: #0EA271;
+    color: white;
+}
+
+.dashboard_page_div .task_types_items .button2 {
+    padding: 7px 12px;
+    border-radius: 7px;
+    width: 100%;
+
+    font-weight: 500;
+    border: 2px solid #3B4CE2;
+    background-color: #3B4CE2;
+    color: white;
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.dashboard_page_div .task_types_items .button2:hover {
+    background-color: #2538DF;
+    color: white;
+}
+
+.dashboard_page_div .task_types_items .button3 {
+    padding: 7px 12px;
+    border-radius: 7px;
+    /* width: 50%; */
+
+    font-weight: 500;
+    border: 2px solid #f55e4a;
+    background-color: #e23e3b;
+    color: white;
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.dashboard_page_div .task_types_items .button3:hover {
+    background-color: #e24e3b;
+    color: white;
+}

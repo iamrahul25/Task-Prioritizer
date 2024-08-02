@@ -84,6 +84,7 @@ function AuthPage() {
             await signInWithEmailAndPassword(auth, email, password);
             console.log('Logged in successfully!');
             window.alert("✅🙋‍♂️ Logged In Successfully!");
+            
         } catch (error) {
             // Handle Errors here.
             if (error.code === 'auth/user-not-found') {
