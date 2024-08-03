@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import styles from '../CSS/LoginPage.module.css';
 import img from '../img/img-login-page.png';
 
@@ -19,7 +20,7 @@ import { TaskContext, useTaskContext } from '../Context/ContextAPI';
 function LoginPage() {
 
     //Context API
-    const { showPages, setShowPages, userEmail, setUserEmail} = useTaskContext();
+    const { showPages, setShowPages, userEmailID, setUserEmailID} = useTaskContext();
 
     //useRef
     const emailRef = useRef();
@@ -31,7 +32,12 @@ function LoginPage() {
         setShowPages({ ...showPages, loginPage: 0, signupPage: 1 });
     }
 
-    const handleSubmit = async(e) => {
+    const handleForgotPasswordPage = () => {
+        console.log("Forgot Password Clicked!");
+        setShowPages({ ...showPages, loginPage: 0, forgotPasswordPage: 1 });
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Login Clicked!");
 
@@ -41,31 +47,29 @@ function LoginPage() {
         console.log({ email, password });
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const user = await signInWithEmailAndPassword(auth, email, password);
+
+            // Set User Email
+            console.log("User Email: ", user.user.email);
+            setUserEmailID(user.user.email);
+
+            // Show Pages
+            setShowPages({ ...showPages, loginPage: 0, dashboardPage: 1 });
+
             console.log('Logged in successfully!');
             window.alert("✅🙋‍♂️ Logged In Successfully!");
 
-            //Set User Email
-            setUserEmail(email);
-
-            //Show Pages
-            setShowPages({ ...showPages, loginPage: 0, dashboardPage: 1 });
-            
         } catch (error) {
             // Handle Errors here.
             if (error.code === 'auth/user-not-found') {
                 window.alert("⚠️ User not found!");
-            }
-            else if (error.code === 'auth/invalid-credential') {
+            } else if (error.code === 'auth/invalid-credential') {
                 window.alert("⚠️ Invalid Email Id or Password!");
-            }
-            else if (error.code === 'auth/invalid-email') {
+            } else if (error.code === 'auth/invalid-email') {
                 window.alert("⚠️ Invalid Email ID!");
-            }
-            else if (error.code === 'auth/wrong-password') {
+            } else if (error.code === 'auth/wrong-password') {
                 window.alert("⚠️ Wrong Password!");
-            }
-            else {
+            } else {
                 console.error(error.message);
                 window.alert("⚠️ Error! " + error.message);
             }
@@ -83,7 +87,7 @@ function LoginPage() {
                 Hello, wecome back!
             </p>
 
-            <form onSubmit={handleSubmit}>
+            <form style={{width:"100%"}} onSubmit={handleSubmit}>
 
                 <div className={styles.input_div}>
                     <MdEmail color='black' size={20} />
@@ -93,6 +97,11 @@ function LoginPage() {
                 <div className={styles.input_div}>
                     <RiLockPasswordFill color='black' size={20} />
                     <input required ref={passwordRef} className={styles.input_field} placeholder="Password" type="password" name="" id="password" />
+                    
+                </div>
+
+                <div className={styles.forgot_password_div}>
+                    <span onClick={handleForgotPasswordPage} className={styles.forgot_password_link}> Forgot Password?</span>
                 </div>
 
                 <button className={styles.button}>Login</button>

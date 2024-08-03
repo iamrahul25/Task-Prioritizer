@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from '../CSS/ForgotPasswordPage.module.css';
 import img from '../img/img-forgot-password-page.png';
 
 //React Icons (Library)
 import { MdEmail } from "react-icons/md";
 
+//Firebase
+import { auth, sendPasswordResetEmail } from '../firebase';
+
 
 function ForgotPasswordPage() {
+
+
+    //useRef
+    const emailRef = useRef();
+
+    const sendResetPasswordMail = async() => {
+        const email = emailRef.current.value;
+        console.log("Forgot Password Clicked!", {email});
+
+        if(email === ""){
+            window.alert("❌🙅‍♂️ Please Enter Email ID!");
+            return;
+        }
+        else{
+            try {
+                await sendPasswordResetEmail(auth, email);
+                window.alert('📩 Password reset email Sent!');
+    
+            } catch (error) {
+                window.alert(`❌🙅‍♂️ Error Sending forgot password mail! \n ${error.message}`);
+                console.error("😢 Error Sending forgot password mail!",error.message);
+            }
+        }
+    }
+
     return (
         <div className={styles.forgot_password_page_div}>
             <div className={styles.image_div}>
@@ -20,11 +48,10 @@ function ForgotPasswordPage() {
 
             <div className={styles.input_div}>
                 <MdEmail color='black' size={20}/>
-                <input className={styles.input_field} placeholder="Email ID" type="email" name="" id="email"/>
+                <input ref={emailRef} className={styles.input_field} placeholder="Email ID" type="email" name="" id="email"/>
             </div>
 
-            <button className={styles.button}>Forgot Password</button>
-
+            <button onClick={sendResetPasswordMail} className={styles.button}>Forgot Password</button>
         </div>
     );
 }

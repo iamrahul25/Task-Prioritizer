@@ -2,11 +2,10 @@
     background-color: #5292e5;
     color: white;
 
-    padding: 20px;
-
+    padding: 20px 15px;
     border-radius: 15px;
 
-    max-width: 280px;
+    max-width: 350px;
     width: 100%;
 
     max-height: 550px;
@@ -46,10 +45,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .login_page_div .image {
-    width: 190px;
+    max-width: 200px;
+    width: 100%;
     height: auto;
 }
 
@@ -64,7 +65,6 @@
     margin: 5px 0px;
     border-radius: 15px;
     padding: 5px 10px;
-
 }
 
 .login_page_div .input_div:hover {
@@ -91,7 +91,7 @@
     width: 100%;
 
     padding: 15px 20px;
-    margin-bottom: -8px;
+    margin-bottom: 8px;
     margin-top: 10px;
 
     border: none;
@@ -108,15 +108,27 @@
 }
 
 .login_page_div .para2 {
-    margin-top: 20px;
+    margin-bottom: 5px;
     font-size: 14px;
     color: black;
 }
 
-.login_page_div .para2 .anchor_tag {
-    font-weight: bold;
-    font-size: 14px;
-    color: black;
+.forgot_password_div {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.forgot_password_div .forgot_password_link{
+    font-size: 12px;
+    color: darkblue;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.anchor_tag{
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
 }

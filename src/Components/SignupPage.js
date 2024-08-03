@@ -84,7 +84,7 @@ function SignupPage() {
                 Hello, welcome back!
             </p>
 
-            <form onSubmit={handleSubmit}>
+            <form style={{width: "100%"}} onSubmit={handleSubmit}>
 
                 <div className={styles.input_div}>
                     <MdEmail color='black' size={20} />

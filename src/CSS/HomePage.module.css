@@ -1,36 +1,12 @@
-* {
-
-    --color-purple: #13263f;
-    --color-purple-light: #8C8CF9;
-    --color-cyan: #05adad;
-    --color-yellow-light: #f4e4c7;
-
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    width: 100%;
-    height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    flex-direction: column;
-}
-
 .home_page_div {
-    background-color: var(--color-purple);
+    background-color: #13263f;
     color: white;
 
-    padding: 20px;
+    padding: 20px 15px;
 
     border-radius: 15px;
 
-    max-width: 280px;
+    max-width: 270px;
     width: 100%;
 
     max-height: 550px;
@@ -66,7 +42,6 @@ body {
 }
 
 .home_page_div .button {
-
     font-weight: bold;
     width: 100%;
 
@@ -76,7 +51,6 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-
 }
 
 .home_page_div .button:hover {
@@ -84,13 +58,13 @@ body {
 }
 
 .home_page_div .button1 {
-    background-color: var(--color-cyan);
-    border: 2px solid var(--color-cyan);
+    background-color: #05adad;
+    border: 2px solid #05adad;
 }
 
 .home_page_div .button2 {
-    background-color: var(--color-yellow-light);
-    border: 2px solid var(--color-yellow-light);
+    background-color: #f4e4c7;
+    border: 2px solid #f4e4c7;
 }
 
 .home_page_div .image_div {

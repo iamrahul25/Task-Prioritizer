@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../CSS/DashboardPage.module.css';
 
 //Firebase
@@ -13,7 +13,10 @@ import TaskListPage from './TasksListPage';
 function DashboardPage() {
 
     //Context API
-    const { showPages, setShowPages } = useTaskContext();
+    const { showPages, setShowPages, syncTimeStamp, setSyncTimeStamp, getTimeStringMethod, handleSaveOrUpdateData} = useTaskContext();
+
+    //useState
+    const [syncTimeString, setSyncTimeString] = useState("");
 
     const handleLogout = () => {
         console.log("Log Out Clicked!");
@@ -25,6 +28,17 @@ function DashboardPage() {
         console.log("Create New Task Clicked!");
         setShowPages({ ...showPages, addNewTaskPage: 1, dashboardPage: 0 });
     }
+
+    //Call Sync Time Every 1 Minute
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if(syncTimeStamp === "") return;
+            const timeString = getTimeStringMethod(Date.now(), syncTimeStamp);
+            setSyncTimeString(timeString);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [syncTimeStamp]);
 
 
     return (
@@ -67,9 +81,14 @@ function DashboardPage() {
                 <hr />
 
                 <div className={styles.task_types_items}>
-                    <button onClick={handleLogout} className={styles.button3}>
-                        Log Out
-                    </button>
+                    <span>Last Sync:</span>
+                    <span>{syncTimeString}</span>
+                </div>
+                <hr />
+
+                <div className={styles.task_types_items}>
+                    <button onClick={handleSaveOrUpdateData} className={styles.button4}>Sync Data</button>
+                    <button onClick={handleLogout} className={styles.button3}> Log Out </button>
                 </div>
 
             </div>

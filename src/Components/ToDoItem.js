@@ -10,10 +10,7 @@ import DashboardPage from './DashboardPage';
 function ToDoItem({ task }) {
 
     //Context API
-    const { showPages, setShowPages, allTasks, setAllTasks } = useTaskContext();
-
-    //Use State
-    const [editTaskData, setEditTaskData] = useState({});
+    const { showPages, setShowPages, allTasks, setAllTasks, taskToEdit, setTaskToEdit } = useTaskContext();
 
 
     // console.log("To Do Item: ", task);
@@ -71,8 +68,8 @@ function ToDoItem({ task }) {
         //Setting the Task Data to Edit
         setShowPages({ ...showPages, dashboardPage: 0, editTaskPage: 1 });
 
-        //Setting the Edit Task Data
-        setEditTaskData(task);
+        //Setting the Task to Edit
+        setTaskToEdit(task);
     }
 
 

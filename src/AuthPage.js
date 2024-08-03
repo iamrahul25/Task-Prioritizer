@@ -144,7 +144,7 @@ function AuthPage() {
 
 
     //Convert TimeStamp to Days, Hours, Minutes, Seconds
-    const getTimeString = (timeStamp1, timeStamp2) => {
+    const getTimeStringMethod = (timeStamp1, timeStamp2) => {
 
         let timeStamp = timeStamp1 - timeStamp2;
         //Parse TimeStamp to Integer
@@ -198,7 +198,7 @@ function AuthPage() {
                 console.log("No Data Exists! Data Saved Successfully!");
             }
 
-            const timeString = getTimeString(Date.now(), syncTimeStamp);
+            const timeString = getTimeStringMethod(Date.now(), syncTimeStamp);
             setSyncTimeString(timeString);
             console.log("Sync Time String: ", timeString);
 
@@ -228,7 +228,7 @@ function AuthPage() {
                 setSyncTimeStamp(userData.syncTimeStamp);
 
                 //Update Sync Time String
-                const timeString = getTimeString(Date.now(), userData.syncTimeStamp);
+                const timeString = getTimeStringMethod(Date.now(), userData.syncTimeStamp);
                 setSyncTimeString(timeString);
                 console.log("Sync Time String: ", timeString);
             }
@@ -298,7 +298,7 @@ function AuthPage() {
     useEffect(() => {
         const interval = setInterval(() => {
             if(syncTimeStamp === "") return;
-            const timeString = getTimeString(Date.now(), syncTimeStamp);
+            const timeString = getTimeStringMethod(Date.now(), syncTimeStamp);
             setSyncTimeString(timeString);
         }, 1000);
 

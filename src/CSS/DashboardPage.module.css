@@ -96,3 +96,22 @@
     background-color: #e24e3b;
     color: white;
 }
+
+.dashboard_page_div .task_types_items .button4 {
+    padding: 7px 12px;
+    border-radius: 7px;
+    /* width: 50%; */
+
+    font-weight: 500;
+    border: 2px solid #53aa02;
+    background-color: #6ebe23;
+    color: white;
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.dashboard_page_div .task_types_items .button4:hover {
+    background-color: #4f950e;
+    color: white;
+}
