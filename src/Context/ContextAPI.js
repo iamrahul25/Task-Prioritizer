@@ -31,68 +31,11 @@ export const TaskContextProvider = ({children}) => {
     });
 
     //Array of All Tasks - If present in Local Storage, get it from there else empty array
-    const [allTasks, setAllTasks] = useState(() => {
-        const savedTasks = localStorage.getItem("allTasks");
-        if(savedTasks) {
-            return JSON.parse(savedTasks);
-        } else {
-            return [];
-        }
-    });
-
-    const [lastSyncTime, setLastSyncTime] = useState(()=>{
-        const savedLastSyncTime = localStorage.getItem("lastSyncTime");
-        if(savedLastSyncTime){
-            return savedLastSyncTime;
-        } else {
-            
-            const currentTimestamp = Date.now();
-            return currentTimestamp;
-        }
-    });
-
-    //Timestamp and Sync
-    const [syncTimeStamp, setSyncTimeStamp] = useState("");
+    const [allTasks, setAllTasks] = useState([]);
 
     const [userEmailID, setUserEmailID] = useState("");
     const [mailVerified, setMailVerified] = useState(false);
-
     const [taskToEdit, setTaskToEdit] = useState({});
-
-    
-    //Convert TimeStamp to Days, Hours, Minutes, Seconds
-    const getTimeStringMethod = (timeStamp1, timeStamp2) => {
-
-        let timeStamp = timeStamp1 - timeStamp2;
-        //Parse TimeStamp to Integer
-        timeStamp = parseInt(timeStamp);
-        let timeString = "";
-
-        // Convert Time to Days
-        const days = Math.floor(timeStamp / (1000 * 60 * 60 * 24));
-        const daysRemainder = timeStamp % (1000 * 60 * 60 * 24);
-
-        // Convert Time to Hours
-        const hours = Math.floor(daysRemainder / (1000 * 60 * 60));
-        const hoursRemainder = daysRemainder % (1000 * 60 * 60);
-
-        // Convert Time to Minutes
-        const minutes = Math.floor(hoursRemainder / (1000 * 60));
-        const minutesRemainder = hoursRemainder % (1000 * 60);
-
-        // Convert Time to Seconds
-        const seconds = Math.floor(minutesRemainder / 1000);
-        const secondsRemainder = minutesRemainder % 1000;
-
-        if (days > 0) timeString += days + " day ";
-        if (hours > 0) timeString += hours + " hr ";
-        if (minutes > 0) timeString += minutes + " min ";
-        if (seconds > 0) timeString += seconds + " sec ";
-
-        timeString += "ago";
-
-        return timeString;
-    }
 
 
     //CRUD - Read, Write, Update Delete Operations in Database---------------------
@@ -105,18 +48,16 @@ export const TaskContextProvider = ({children}) => {
             //If Data Exists, Update Data
             if(!queryData.empty){
                 const userDoc = queryData.docs[0];
-                await updateDoc(userDoc.ref, {allTasks: allTasks, syncTimeStamp: Date.now()});
+                await updateDoc(userDoc.ref, {allTasks: allTasks});
                 console.log("Data Exists Already! Data Updated Successfully!");
             }
             
             //If Data Does Not Exist, Save Data
             else{
-                await addDoc(tasksCollectionRef, {allTasks: allTasks, email: userEmailID, syncTimeStamp: Date.now()});
+                await addDoc(tasksCollectionRef, {allTasks: allTasks, email: userEmailID});
                 console.log("No Data Exists! Data Saved Successfully!");
             }
 
-            //Set SyncTimeStamp 
-            setSyncTimeStamp(Date.now());
         }
         catch(error){
             console.error("Error Saving/Updating Data!", error.message);
@@ -136,9 +77,6 @@ export const TaskContextProvider = ({children}) => {
 
                 //Update setAllTasks with Data from Database
                 setAllTasks(userData.allTasks);
-
-                // Update syncTimeStamp
-                setSyncTimeStamp(userData.syncTimeStamp);
             }
             else{
                 console.log("No User Data Found!");
@@ -187,17 +125,10 @@ export const TaskContextProvider = ({children}) => {
                     setMailVerified(true);
                     console.log("Email is Verified!");
 
+                    await handleFetchData(user.email);
+
                     //Show Pages 
                     setShowPages({...showPages, homePage: 0, dashboardPage: 1});
-
-                    
-                    console.log("sync time is: ",st)
-                    
-                    if(!st){
-                        await handleFetchData(user.email);
-                    }
-                    
-                    
 
                     //Console Log
                     console.log(showPages);
@@ -221,13 +152,11 @@ export const TaskContextProvider = ({children}) => {
 
     }, []);
 
-    //When ever syncTimeStamp changes save in local storage
-    useEffect(()=>{
-        // Save syncTimeStamp to local storage
-        localStorage.setItem("lastSyncTime", syncTimeStamp);
-        console.log("synctime changes & Saved", syncTimeStamp);
 
-    },[syncTimeStamp])
+    //Every time allTasks array changes, save it Firestore Database
+    useEffect(() => {
+        handleSaveOrUpdateData();
+    }, [allTasks]);
 
 
     //New-------------------------------------------------------------
@@ -269,18 +198,6 @@ export const TaskContextProvider = ({children}) => {
 
 
     //Methods:--------------------------------------------------------
-    
-
-    //UseEffect:
-    //Every time allTasks array changes, save it to the Local Storage 
-    useEffect(() => {
-        localStorage.setItem("allTasks", JSON.stringify(allTasks));
-    }, [allTasks]);
-
-    // useEffect(() => {
-    //     localStorage.setItem("lastSyncTime", lastSyncTime);
-    // }, [lastSyncTime]);
-
 
     //Context API Export
     const value = {
@@ -299,24 +216,14 @@ export const TaskContextProvider = ({children}) => {
 
         showTaskList, setShowTaskList,
 
-        lastSyncTime, setLastSyncTime,
-
-
-
 
         showPages, setShowPages,
         taskToEdit, setTaskToEdit,
         userEmailID, setUserEmailID,
         mailVerified, setMailVerified,
 
-        syncTimeStamp, setSyncTimeStamp,
-
-        getTimeStringMethod,
+        handleFetchData,
         handleSaveOrUpdateData,
-
-
-
-
     };
 
     return <TaskContext.Provider value={value}> {children} </TaskContext.Provider>;

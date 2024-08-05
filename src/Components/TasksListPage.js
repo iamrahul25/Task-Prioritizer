@@ -7,19 +7,99 @@ import styles from '../CSS/TaskListPage.module.css';
 import { TaskContext, useTaskContext } from '../Context/ContextAPI';
 import ToDoItem from './ToDoItem';
 
-function TaskListPage() {
 
-    //Context API
-    const { showPages, setShowPages, allTasks, setAllTasks } = useTaskContext();
+/*
+function AllTasksList({title, taskArray}) {
+
+    let taskList; 
+
+    if(title === "Not Completed") {
+        taskList = taskArray.filter((item) => {
+            return item.taskDone === false;
+        });
+    }
+    else if(title === "Completed") {
+        taskList = taskArray.filter((item) => {
+            return item.taskDone === true;
+        });
+    }
+    else if(title === "Not Done on Deadline") {
+
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        
+        const dateString = year + "-" + month + "-" + day;
+        console.log("Date String: - - -", dateString);
+
+        taskList = taskArray.filter((item) => {
+            return item.taskDone === false && item.deadline < dateString;
+        });
+    }
+
+
+    return (
+        <div>
+
+            <h2>
+                { "Tasks (" + (title) + ") => (" + taskList.length + ")" }
+            </h2>
+
+            <div>
+                {taskList.map((item, index) => {
+                    return (
+                        <Task key={index} task={item} title={title} />
+                    )
+                })}
+            </div>
+            
+        </div>
+    )
+}
+
+*/
+
+function TaskListPage({title, taskArray}) {
+
+    let taskList; 
+
+    if(title === "Not Completed") {
+        taskList = taskArray.filter((item) => {
+            return item.taskDone === false;
+        });
+    }
+    else if(title === "Completed") {
+        taskList = taskArray.filter((item) => {
+            return item.taskDone === true;
+        });
+    }
+    else if(title === "Not Done on Deadline") {
+
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        
+        const dateString = year + "-" + month + "-" + day;
+        console.log("Date String: - - -", dateString);
+
+        taskList = taskArray.filter((item) => {
+            return item.taskDone === false && item.deadline < dateString;
+        });
+    }
+    else if(title === "All"){
+        taskList = taskArray;
+    }
 
 
     return (
         <div className={styles.task_list_page}>
-            <h1>Task List Page</h1>
+            <h2>{title} ({taskList.length})</h2>
 
             <div>
-                {/* Loop through allTasks array and display each task in a card */}
-                {allTasks.map((task, index) => {
+                {/* Loop through taskList and display each task in a card */}
+                {taskList.map((task, index) => {
                     return (
                         <ToDoItem task={task} key={index} />
                     );

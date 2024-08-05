@@ -1,4 +1,5 @@
 .dashboard_page_div {
+    max-width: 320px;
     width: 100%;
     margin: 0 auto;
     padding: 20px;
@@ -37,6 +38,7 @@
     color: white;
     padding: 3px 5px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 

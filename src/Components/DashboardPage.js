@@ -13,10 +13,8 @@ import TaskListPage from './TasksListPage';
 function DashboardPage() {
 
     //Context API
-    const { showPages, setShowPages, syncTimeStamp, setSyncTimeStamp, getTimeStringMethod, handleSaveOrUpdateData} = useTaskContext();
-
-    //useState
-    const [syncTimeString, setSyncTimeString] = useState("");
+    const { showPages, setShowPages, allTasks, setAllTasks } = useTaskContext();
+    const [taskType, setTaskType] = useState("All Tasks");
 
     const handleLogout = () => {
         console.log("Log Out Clicked!");
@@ -29,16 +27,10 @@ function DashboardPage() {
         setShowPages({ ...showPages, addNewTaskPage: 1, dashboardPage: 0 });
     }
 
-    //Call Sync Time Every 1 Minute
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if(syncTimeStamp === "") return;
-            const timeString = getTimeStringMethod(Date.now(), syncTimeStamp);
-            setSyncTimeString(timeString);
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [syncTimeStamp]);
+    const handleShowType = (type) => {
+        console.log("Show Type Clicked!");
+        setTaskType(type);
+    }
 
 
     return (
@@ -63,39 +55,44 @@ function DashboardPage() {
                 <hr />
 
                 <div className={styles.task_types_items}>
+                    <span>Show Task (All)</span>
+                    <span onClick={() => handleShowType("All Tasks")} className={styles.span_total}>Show</span>
+                </div>
+                <hr />
+
+                <div className={styles.task_types_items}>
                     <span>Show Task (Completed)</span>
-                    <span className={styles.span_total}>15 Total</span>
+                    <span onClick={() => handleShowType("Completed")} className={styles.span_total}>Show</span>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
                     <span>Show Task (Not completed)</span>
-                    <span className={styles.span_total}>3 Total</span>
+                    <span onClick={() => handleShowType("Not Completed")} className={styles.span_total}>Show</span>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
                     <span>Show Tasks (Deadline miss)</span>
-                    <span className={styles.span_total}>8 Total</span>
+                    <span onClick={() => handleShowType("Not Done on Deadline")} className={styles.span_total}> Show</span>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
-                    <span>Last Sync:</span>
-                    <span>{syncTimeString}</span>
-                </div>
-                <hr />
-
-                <div className={styles.task_types_items}>
-                    <button onClick={handleSaveOrUpdateData} className={styles.button4}>Sync Data</button>
+                    <button className={styles.button4}>Sync Data</button>
                     <button onClick={handleLogout} className={styles.button3}> Log Out </button>
                 </div>
 
             </div>
 
 
-            <TaskListPage />
-            
+            <div>
+                {(taskType === "All Tasks") ? <TaskListPage title="All" taskArray={allTasks} /> : null}
+                {(taskType === "Completed") ? <TaskListPage title="Completed" taskArray={allTasks} /> : null}
+                {(taskType === "Not Completed") ? <TaskListPage title="Not Completed" taskArray={allTasks} /> : null}
+                {(taskType === "Not Done on Deadline") ? <TaskListPage title="Not Done on Deadline" taskArray={allTasks} /> : null}
+            </div>
+
 
         </div>
 

@@ -66,7 +66,7 @@ function App() {
 
 		<div className="main-page">
 			
-			<AuthPage />
+			{/* <AuthPage /> */}
 
 			<div className="home-page">
 
