@@ -1,14 +1,11 @@
 .task_div {
     background-color: white;
     border-radius: 10px;
-
     border: none;
-    margin: 10px 0;
 
-    max-width: 400px;
-    /* width: 100%; */
+    max-width: 370px;
     height: auto;
-    padding: 25px;
+    padding: 12px;
 
     box-shadow: 2px 2px 10px 0px rgba(7, 0, 0, 0.2);
 }
@@ -98,16 +95,28 @@
 }
 
 .span_important {
-    background-color: #F8B3B3;
+    background-color: #c3fde4;
     border-radius: 10px;
     padding: 2px 8px;
     margin-right: 5px;
 }
 
 .span_urgent {
-    background-color: #c3fde4;
+    background-color: #F8B3B3;
     border-radius: 10px;
     padding: 2px 5px;
+}
+
+.span_not_important {
+    background-color: #d2d2d2;
+    border-radius: 10px;
+    padding: 2px 8px;
+}
+
+.span_not_urgent {
+    background-color: #d2d2d2;
+    border-radius: 10px;
+    padding: 2px 8px;
 }
 
 .span_keywords {

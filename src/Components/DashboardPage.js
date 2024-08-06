@@ -13,23 +13,40 @@ import TaskListPage from './TasksListPage';
 function DashboardPage() {
 
     //Context API
-    const { showPages, setShowPages, allTasks, setAllTasks } = useTaskContext();
+    const { showPages, setShowPages, allTasks, setAllTasks, lengthOfTasks, setLengthOfTasks} = useTaskContext();
     const [taskType, setTaskType] = useState("All Tasks");
 
     const handleLogout = () => {
-        console.log("Log Out Clicked!");
+        // console.log("Log Out Clicked!");
         auth.signOut();
         setShowPages({ ...showPages, dashboardPage: 0, homePage: 1 });
     }
 
     const handleaddNewTask = () => {
-        console.log("Create New Task Clicked!");
+        // console.log("Create New Task Clicked!");
         setShowPages({ ...showPages, addNewTaskPage: 1, dashboardPage: 0 });
     }
 
+    const handleSearchTasks = () => {
+        // console.log("Search Task Clicked!");
+        setShowPages({ ...showPages, searchTaskPage: 1, dashboardPage: 0 });
+    }
+
     const handleShowType = (type) => {
-        console.log("Show Type Clicked!");
+        // console.log("Show Type Clicked!");
         setTaskType(type);
+    }
+
+    const handleDownloadJSON = () => {
+        // console.log("Download JSON Clicked!");
+
+        const data = JSON.stringify(allTasks);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'tasks.json';
+        a.click();
     }
 
 
@@ -48,39 +65,37 @@ function DashboardPage() {
                 <hr />
 
                 <div className={styles.task_types_items}>
-                    <button className={styles.button2}>
-                        Search / Filter Task!
-                    </button>
+                    <button onClick={handleSearchTasks}  className={styles.button2}> Search / Filter Task! </button>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
                     <span>Show Task (All)</span>
-                    <span onClick={() => handleShowType("All Tasks")} className={styles.span_total}>Show</span>
+                    <span onClick={() => handleShowType("All Tasks")} className={styles.span_total}>Show ({lengthOfTasks.all})</span>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
                     <span>Show Task (Completed)</span>
-                    <span onClick={() => handleShowType("Completed")} className={styles.span_total}>Show</span>
+                    <span onClick={() => handleShowType("Completed")} className={styles.span_total}>Show ({lengthOfTasks.completed})</span>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
                     <span>Show Task (Not completed)</span>
-                    <span onClick={() => handleShowType("Not Completed")} className={styles.span_total}>Show</span>
+                    <span onClick={() => handleShowType("Not Completed")} className={styles.span_total}>Show ({lengthOfTasks.not_completed})</span>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
                     <span>Show Tasks (Deadline miss)</span>
-                    <span onClick={() => handleShowType("Not Done on Deadline")} className={styles.span_total}> Show</span>
+                    <span onClick={() => handleShowType("Not Done on Deadline")} className={styles.span_total}> Show ({lengthOfTasks.deadline_miss})</span>
                 </div>
                 <hr />
 
                 <div className={styles.task_types_items}>
-                    <button className={styles.button4}>Sync Data</button>
                     <button onClick={handleLogout} className={styles.button3}> Log Out </button>
+                    <button onClick={handleDownloadJSON} className={styles.button4}>Download JSON</button>
                 </div>
 
             </div>

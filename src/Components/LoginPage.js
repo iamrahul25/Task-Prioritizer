@@ -28,35 +28,35 @@ function LoginPage() {
 
 
     const handleSignupPage = () => {
-        console.log("Sign Up Clicked!");
+        // console.log("Sign Up Clicked!");
         setShowPages({ ...showPages, loginPage: 0, signupPage: 1 });
     }
 
     const handleForgotPasswordPage = () => {
-        console.log("Forgot Password Clicked!");
+        // console.log("Forgot Password Clicked!");
         setShowPages({ ...showPages, loginPage: 0, forgotPasswordPage: 1 });
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Login Clicked!");
+        // console.log("Login Clicked!");
 
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
-        console.log({ email, password });
+        // console.log({ email, password });
 
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
 
             // Set User Email
-            console.log("User Email: ", user.user.email);
+            // console.log("User Email: ", user.user.email);
             setUserEmailID(user.user.email);
 
             // Show Pages
             setShowPages({ ...showPages, loginPage: 0, dashboardPage: 1 });
 
-            console.log('Logged in successfully!');
+            // console.log('Logged in successfully!');
             window.alert("✅🙋‍♂️ Logged In Successfully!");
 
         } catch (error) {

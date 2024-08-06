@@ -18,7 +18,7 @@ function ToDoItem({ task }) {
     //Methods: 
     const handleDelete = (id) => {
 
-        console.log("Delete Clicked!", id);
+        // console.log("Delete Clicked!", id);
 
         //Filtering the Task with the given timeStamp
         const newAllTasks = allTasks.filter((task) => task.timeStamp !== id);
@@ -26,8 +26,6 @@ function ToDoItem({ task }) {
     }
 
     const handleMarkAsDone = (id) => {
-
-        console.log("Mark as Done Clicked!", id);
 
         //Finding the Task with the given timeStamp
         const task = allTasks.find((task) => task.timeStamp === id);
@@ -59,17 +57,28 @@ function ToDoItem({ task }) {
     //Handle Edit Task
     const handleEdit = (id) => {
 
-        console.log("Edit Clicked!", id);
-
         //Finding the Task with the given timeStamp
         const task = allTasks.find((task) => task.timeStamp === id);
-        console.log("Task to Edit:", task);
+        // console.log("Task to Edit:", task);
 
         //Setting the Task Data to Edit
         setShowPages({ ...showPages, dashboardPage: 0, editTaskPage: 1 });
 
         //Setting the Task to Edit
         setTaskToEdit(task);
+    }
+
+    //Method to convert: Input: "2024-08-06" to Output: "6 Aug 2024"
+    function formatDate(inputDate) {
+        const date = new Date(inputDate);
+
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        const day = date.getDate();
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+
+        return `${day} ${month} ${year}`;
     }
 
 
@@ -91,18 +100,23 @@ function ToDoItem({ task }) {
                     </tr>  */}
 
                         <tr>
-                            <td> <strong> Duration (Hrs): </strong> </td>
-                            <td> <span> {task.duration} </span> </td>
+                            <td> <strong> Priority: </strong> </td>
+                            <td> <span> {task.priority} </span> </td>
+                        </tr>
+
+                        <tr>
+                            <td> <strong> Duration: </strong> </td>
+                            <td> <span> {task.duration} hours </span> </td>
                         </tr>
 
                         <tr>
                             <td> <strong> Date Created: </strong> </td>
-                            <td> <span> {task.dateString} </span> </td>
+                            <td> <span> {formatDate(task.dateString)} </span> </td>
                         </tr>
 
                         <tr>
                             <td> <strong> Deadline: </strong> </td>
-                            <td> <span> {task.deadline} </span> </td>
+                            <td> <span> {formatDate(task.deadline)} </span> </td>
                         </tr>
 
                         {/* <tr>
@@ -110,17 +124,20 @@ function ToDoItem({ task }) {
                         <td> <span> 7 </span> </td>
                     </tr> */}
 
-                        <tr>
-                            <td> <strong> Priority: </strong> </td>
-                            <td> <span> {task.priority} </span> </td>
-                        </tr>
 
                         <tr>
                             <td> <strong> Imp or Urgent</strong> </td>
                             <td>
                                 <div className={styles.keywords_div}>
-                                    <span className={styles.span_important}> Important </span>
-                                    <span className={styles.span_urgent}> Urgent </span>
+
+                                    {task.impAndUrgNo === 1 && <> <span className={styles.span_urgent}> Urgent </span> <span className={styles.span_important}> Important </span> </>}
+
+                                    {task.impAndUrgNo === 2 && <> <span className={styles.span_urgent}> Urgent </span> <span className={styles.span_not_important}> Not Important </span> </>}
+
+                                    {task.impAndUrgNo === 3 && <> <span className={styles.span_not_urgent}> Not Urgent </span> <span className={styles.span_important}> Important </span> </>}
+
+                                    {task.impAndUrgNo === 4 && <> <span className={styles.span_not_urgent}> Not Urgent </span> <span className={styles.span_not_important}> Not Important </span> </>}
+
                                 </div>
                             </td>
                         </tr>
@@ -143,14 +160,14 @@ function ToDoItem({ task }) {
                 </table>
 
                 <div className={styles.buttons_div}>
-                    <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.button1}> <i className="fa-solid fa-check"></i> Mark as Done</button>
-                    <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.button2}> <i className="fa-solid fa-trash"></i> Delete</button>
-                    <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.button3}> <i className="fa-solid fa-pencil"></i> Edit</button>
+                    <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.button1}> {task.taskDone ? "Mark as Undone" : "Mark as Done"} </button>
+                    <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.button2}> Delete</button>
+                    <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.button3}> Edit</button>
                 </div>
 
             </div>
 
-            
+
 
         </div>
 

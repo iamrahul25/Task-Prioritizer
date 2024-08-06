@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import App2 from './App2';
 import { TaskContextProvider } from './Context/ContextAPI';
 
 //Pages
@@ -19,8 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
     <TaskContextProvider>
-        {/* <App /> */}
-        <App2 />
+        <App />
         {/* <HomePage /> */}
         {/* <LoginPage /> */}
         {/* <SignupPage /> */}

@@ -24,19 +24,19 @@ function SignupPage() {
     const confirmPasswordRef = useRef();
 
     const handleNavigateLoginPage = () => {
-        console.log("Login Clicked!");
+        // console.log("Login Clicked!");
         setShowPages({ ...showPages, loginPage: 1, signupPage: 0 });
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Sign Up Clicked!");
+        // console.log("Sign Up Clicked!");
 
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         const confirmPassword = confirmPasswordRef.current.value;
 
-        console.log({ email, password, confirmPassword });
+        // console.log({ email, password, confirmPassword });
 
         if(password!==confirmPassword){
             window.alert("Password and Confirm Password do not match!");

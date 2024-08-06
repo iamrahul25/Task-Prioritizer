@@ -11,12 +11,12 @@ function HomePage() {
     const {showPages, setShowPages} = useTaskContext();
 
     const handleLoginButton = () => {
-        console.log("Login Button Clicked!");
+        // console.log("Login Button Clicked!");
         setShowPages({...showPages, homePage: 0, loginPage: 1});
     }
 
     const handleSignUpButton = () => {
-        console.log("Sign Up Button Clicked!");
+        // console.log("Sign Up Button Clicked!");
         setShowPages({...showPages, homePage: 0, signupPage: 1});
     }
 

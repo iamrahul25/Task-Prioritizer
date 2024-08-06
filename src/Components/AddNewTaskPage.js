@@ -16,13 +16,13 @@ function AddNewTaskPage() {
     const handleSubmitForm = (e) => {
         e.preventDefault();
 
-        console.log("Form Submitted ! \n");
+        // console.log("Form Submitted ! \n");
 
         //Get the values from the form
         const task = e.target[0].value;
         const duration = e.target[1].value;
         const deadline = e.target[2].value;
-        const priority = e.target[3].value;
+        const priority = parseInt(e.target[3].value);
 
         //Get Values of Radio Buttons
         const importance = e.target[4].checked;
@@ -40,7 +40,7 @@ function AddNewTaskPage() {
 
         //Split the string by comma, remove extra space and remove empty strings
         const keywords = textareaString.split(",").map((keyword) => keyword.trim()).filter((keyword) => keyword !== "");
-        console.log("Keywords:", keywords, "\n");
+        // console.log("Keywords:", keywords, "\n");
 
         //Get current datestring and timestamp 
         const date = new Date();
@@ -51,13 +51,11 @@ function AddNewTaskPage() {
         const dateString = year + "-" + month + "-" + day;
         const timeStamp = date.getTime();
 
-        const formValues = { taskDone: false, task, duration, deadline, dateOfCompletion: "", priority, importance, urgency, impAndUrgNo, dateString, timeStamp, keywords };
-        console.log("Form Values:", formValues, "\n");
+        const formValues = { taskDone: false, task, duration, deadline, dateOfCompletion: "", priority, impAndUrgNo, dateString, timeStamp, keywords };
+        // console.log("Form Values:", formValues, "\n");
 
         //Inserting Values into the All Tasks Array
         setAllTasks([...allTasks, formValues]);
-
-        // console.log("All Tasks:", allTasks, "\n");
 
         //Close the Create New Task Page
         setShowPages({ ...showPages, addNewTaskPage: 0, dashboardPage: 1 });
@@ -65,7 +63,7 @@ function AddNewTaskPage() {
 
 
     const handleClose = () => {
-        console.log("Close Button Clicked!");
+        // console.log("Close Button Clicked!");
 
         //Close the Create New Task Page
         setShowPages({ ...showPages, addNewTaskPage: 0, dashboardPage: 1 });

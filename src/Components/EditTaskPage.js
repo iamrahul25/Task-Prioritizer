@@ -13,11 +13,11 @@ function EditTaskPage({taskData}) {
     //Context API
     const { showPages, setShowPages, allTasks, setAllTasks } = useTaskContext();
 
-    console.log("Task Data (To Edit!):", taskData);
+    // console.log("Task Data (To Edit!):", taskData);
 
 
     const handleClose = () => {
-        console.log("Close Button Clicked!");
+        // console.log("Close Button Clicked!");
 
         //Closing the Edit Task Page
         setShowPages({...showPages, editTaskPage:false, dashboardPage:true});
@@ -30,17 +30,13 @@ function EditTaskPage({taskData}) {
         
         //ID -> timeStamp
         const id = taskData.timeStamp;
-        console.log("ID:", id);
-
-
-        // Saving the Edited Task
-        console.log("Saving the Edited Task!");
+        // console.log("Edited Task! ID:", id);
 
         //Form Values
         const task = e.target[0].value;
         const duration = e.target[1].value;
         const deadline = e.target[2].value;
-        const priority = e.target[3].value;
+        const priority = parseInt(e.target[3].value);
         
         //Get Values of Radio Buttons
         const importance = e.target[4].checked;
@@ -64,8 +60,8 @@ function EditTaskPage({taskData}) {
         const timeStamp = taskData.timeStamp;
         const dateOfCompletion = taskData.dateOfCompletion;
 
-        const formValues = {taskDone:false, task, duration, deadline, dateOfCompletion, priority, importance, urgency, impAndUrgNo, dateString, timeStamp, keywords};
-        console.log("Form Values:", formValues, "\n");
+        const formValues = {taskDone:false, task, duration, deadline, dateOfCompletion, priority, impAndUrgNo, dateString, timeStamp, keywords};
+        // console.log("Form Values:", formValues, "\n");
 
         //Removing the Old Task
         let newAllTasks = allTasks.filter((task) => task.timeStamp !== id);
@@ -79,11 +75,12 @@ function EditTaskPage({taskData}) {
         //Closing the Edit Task Page
         setShowPages({...showPages, editTaskPage:false, dashboardPage: true});
 
-        console.log(showPages, "\n");
     }
 
 
     return (
+
+        <div>
         <form onSubmit={handleSubmitForm} className={styles.input_form}>
 
             <div>
@@ -170,6 +167,8 @@ function EditTaskPage({taskData}) {
             </div>
 
         </form>
+
+        </div>
 
     )
 

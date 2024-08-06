@@ -18,7 +18,6 @@ export const TaskContextProvider = ({children}) => {
     //Firebase Firestore
     const tasksCollectionRef = collection(db, 'tasks');
 
-    //New-------------------------------------------------------------
     const [showPages, setShowPages] = useState({
         homePage: 0,
         loginPage: 0,
@@ -30,8 +29,16 @@ export const TaskContextProvider = ({children}) => {
         editTaskPage: 0,
     });
 
+    const [lengthOfTasks, setLengthOfTasks] = useState({
+        all: 0,
+        completed: 0,
+        not_completed: 0,
+        deadline_miss: 0
+    });
+
     //Array of All Tasks - If present in Local Storage, get it from there else empty array
     const [allTasks, setAllTasks] = useState([]);
+    const [filteredTaskList, setFilteredTaskList] = useState([]);
 
     const [userEmailID, setUserEmailID] = useState("");
     const [mailVerified, setMailVerified] = useState(false);
@@ -73,7 +80,8 @@ export const TaskContextProvider = ({children}) => {
             if(!queryData.empty){
                 const userDoc = queryData.docs[0];
                 const userData = userDoc.data();
-                console.log("User Data Fetched Successfully: ", userData);
+                console.log("User Data Fetched Successfully: ");
+                // console.log("User Data Fetched Successfully: ", userData);
 
                 //Update setAllTasks with Data from Database
                 setAllTasks(userData.allTasks);
@@ -117,7 +125,8 @@ export const TaskContextProvider = ({children}) => {
         //Check if User Data Exists -> Email is Present or Not
         const checkLogin = auth.onAuthStateChanged(async(user) => {
             if (user) {
-                console.log("User Login Data Present! \n", user);
+                console.log("User Login Data Present! \n");
+                // console.log("User Login Data Present! \n", user);
                 setUserEmailID(user.email);
 
                 //Check if Email is Verified
@@ -129,9 +138,6 @@ export const TaskContextProvider = ({children}) => {
 
                     //Show Pages 
                     setShowPages({...showPages, homePage: 0, dashboardPage: 1});
-
-                    //Console Log
-                    console.log(showPages);
 
                 } else {
 
@@ -152,76 +158,50 @@ export const TaskContextProvider = ({children}) => {
 
     }, []);
 
+    //Change length of different tasks list.
+    const updateLenghtMethod = () => {
+        let completed = 0, not_completed = 0, deadline_miss = 0;
+        allTasks.map((task) => {
+            if (task.taskDone) {
+                completed++;
+            } else {
+                not_completed++;
+            }
 
-    //Every time allTasks array changes, save it Firestore Database
+            let today = new Date();
+            let deadline = new Date(task.deadline);
+            if (today > deadline) {
+                deadline_miss++;
+            }
+        });
+
+        setLengthOfTasks({
+            all: allTasks.length,
+            completed: completed,
+            not_completed: not_completed,
+            deadline_miss: deadline_miss
+        });
+    }
+
+
+    //Every time allTasks array changes
     useEffect(() => {
+        //Save Data to Firestore
         handleSaveOrUpdateData();
+        //Update Length of different tasks list.
+        updateLenghtMethod();
     }, [allTasks]);
 
 
-    //New-------------------------------------------------------------
-
-
-
-    //States:
-	const [showCreateNewTaskPage, setShowCreateNewTaskPage] = useState(false);
-    const [showSearchTaskPage, setShowSearchTaskPage] = useState(false);
-
-    const [showTaskList, setShowTaskList] = useState({
-        notCompleted: false,
-        completed: false,
-        notDoneOnDeadline: false,
-    });
-
-    
-
-    const [showEditTaskPage, setShowEditTaskPage] = useState(false);
-    const [editTaskData, setEditTaskData] = useState({
-        task: "",
-        duration: "",
-        deadline: "",
-        dateOfCompletion: "",
-        priority: "",
-        important: false,
-        urgent: false,
-        impAndUrgNo: 4,
-        timeStamp: "",
-        dateString: "",
-        taskDone: false,
-    });
-
-
-    
-
-    //Search Task List
-    const [searchTaskList, setSearchTaskList] = useState([]);
-
-
-    //Methods:--------------------------------------------------------
-
     //Context API Export
     const value = {
-
-        showCreateNewTaskPage, setShowCreateNewTaskPage,
-
-        showSearchTaskPage, setShowSearchTaskPage,
-
         allTasks, setAllTasks,
-
-        searchTaskList, setSearchTaskList,
-
-        showEditTaskPage, setShowEditTaskPage,
-
-        editTaskData, setEditTaskData,
-
-        showTaskList, setShowTaskList,
-
-
+        lengthOfTasks, setLengthOfTasks,
+        filteredTaskList, setFilteredTaskList,
         showPages, setShowPages,
         taskToEdit, setTaskToEdit,
         userEmailID, setUserEmailID,
         mailVerified, setMailVerified,
-
         handleFetchData,
         handleSaveOrUpdateData,
     };
