@@ -16,6 +16,12 @@ function TaskListPage({title, taskArray}) {
         taskList = taskArray.filter((item) => {
             return item.taskDone === false;
         });
+
+        //Sort the taskList by Priority (Reverse Order)
+        taskList.sort((a, b) => {
+            return b.priority - a.priority;
+        });
+        
     }
     else if(title === "Completed") {
         taskList = taskArray.filter((item) => {
@@ -36,7 +42,13 @@ function TaskListPage({title, taskArray}) {
             return item.taskDone === false && item.deadline < dateString;
         });
     }
-    else{
+    else if(title==="Filtered/Search Task"){
+        //Only Not Completed Tasks
+        taskList = taskArray.filter((item) => {
+            return item.taskDone === false;
+        });
+    }
+    else if(title==="All"){ 
         taskList = taskArray;
     }
 

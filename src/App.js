@@ -11,7 +11,6 @@ import DashboardPage from './Components/DashboardPage';
 import AddNewTaskPage from './Components/AddNewTaskPage';
 import EditTaskPage from './Components/EditTaskPage';
 import ForgotPasswordPage from './Components/ForgotPasswordPage';
-import SearchTaskPage from './Components/SearchTaskPage';
 
 function App() {
 
@@ -28,7 +27,6 @@ function App() {
             {showPages.signupPage ? <SignupPage/> : null}
             {showPages.dashboardPage ? <DashboardPage/> : null}
             {showPages.addNewTaskPage ? <AddNewTaskPage/> : null}
-            {showPages.searchTaskPage ? <SearchTaskPage/> : null}
             {showPages.editTaskPage ? <EditTaskPage taskData={taskToEdit} /> : null}
             {showPages.forgotPasswordPage ? <ForgotPasswordPage/> : null}
 

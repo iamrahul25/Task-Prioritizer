@@ -12,7 +12,6 @@ function ToDoItem({ task }) {
     //Context API
     const { showPages, setShowPages, allTasks, setAllTasks, taskToEdit, setTaskToEdit } = useTaskContext();
 
-
     // console.log("To Do Item: ", task);
 
     //Methods: 
@@ -81,6 +80,21 @@ function ToDoItem({ task }) {
         return `${day} ${month} ${year}`;
     }
 
+    //Method to calculate the days between two dates dateOfCreation:2024-08-01 and dateOfCompletion:2024-08-06 => 5 Days
+    function calculateDaysBetween(d1, d2) {
+        // Convert the date strings to Date objects
+        const date1 = new Date(d1);
+        const date2 = new Date(d2);
+
+        // Calculate the time difference in milliseconds
+        const timeDifference = date2.getTime() - date1.getTime();
+
+        // Convert time difference from milliseconds to days
+        const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+        return daysDifference;
+    }
+
 
     return (
 
@@ -88,7 +102,7 @@ function ToDoItem({ task }) {
 
             <div className={styles.task_div}>
 
-                <h3> Task (Name): {task.task} </h3>
+                <h3> {task.task.length > 65 ? task.task.substring(0, 65) + "..." : task.task} </h3>
 
                 <table>
 
@@ -119,11 +133,13 @@ function ToDoItem({ task }) {
                             <td> <span> {formatDate(task.deadline)} </span> </td>
                         </tr>
 
-                        {/* <tr>
-                        <td> <strong>Days Left</strong></td>
-                        <td> <span> 7 </span> </td>
-                    </tr> */}
+                        {task.taskDone ?
+                            <tr>
+                                <td> <strong>Time taken</strong></td>
+                                <td> <span> {calculateDaysBetween(task.dateString, task.dateOfCompletion)} Days</span> </td>
+                            </tr>
 
+                            : null}
 
                         <tr>
                             <td> <strong> Imp or Urgent</strong> </td>
@@ -160,7 +176,7 @@ function ToDoItem({ task }) {
                 </table>
 
                 <div className={styles.buttons_div}>
-                    <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.button1}> {task.taskDone ? "Mark as Undone" : "Mark as Done"} </button>
+                    <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.button1}> {task.taskDone ? "Undone" : "Done"} </button>
                     <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.button2}> Delete</button>
                     <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.button3}> Edit</button>
                 </div>

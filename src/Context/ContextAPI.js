@@ -25,7 +25,6 @@ export const TaskContextProvider = ({children}) => {
         forgotPasswordPage: 0,
         dashboardPage: 0,
         addNewTaskPage: 0,
-        searchTaskPage: 0,
         editTaskPage: 0,
     });
 
@@ -47,6 +46,7 @@ export const TaskContextProvider = ({children}) => {
 
     //CRUD - Read, Write, Update Delete Operations in Database---------------------
     const handleSaveOrUpdateData = async () => {
+        // console.log("Save/Update Data (Server) Function Called!");
         try{
 
             const userQuery = query(tasksCollectionRef, where("email", "==", userEmailID));
