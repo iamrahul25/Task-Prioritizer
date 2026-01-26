@@ -23,23 +23,31 @@ function HomePage() {
 
     return (
         <div className={styles.home_page_div}>
-            <div className={styles.image_div}>
-                <img className={styles.image} src={img} alt="" />
+            <div className={styles.card_container}>
+                <div className={styles.image_div}>
+                    <img className={styles.image} src={img} alt="Task Prioritizer" />
+                </div>
+
+                <h2 className={styles.heading}>Task Prioritizer</h2>
+                
+                <p className={styles.para}>
+                    Welcome to Task Prioritizer. A faster and easier way to manage your tasks. Set deadlines, urgency and
+                    importance of your tasks.
+                </p>
+
+                <p className={styles.para}>
+                    Login or Sign Up to your account to get started.
+                </p>
+
+                <div className={styles.buttons_container}>
+                    <button onClick={handleLoginButton} className={`${styles.button} ${styles.button1}`}>
+                        Login
+                    </button>
+                    <button onClick={handleSignUpButton} className={`${styles.button} ${styles.button2}`}>
+                        Sign Up
+                    </button>
+                </div>
             </div>
-
-            <h2 className={styles.heading}>Task Prioritizer</h2>
-            <p className={styles.para}>
-                Welcome, to Task Prioritizer. Faster and easier way to manage your tasks. Set deadlines, urgency and
-                importance of your tasks.
-            </p>
-
-            <p className={styles.para}>
-                Login or Sign Up to your account to get started.
-            </p>
-
-            <button onClick={handleLoginButton}  className={`${styles.button} ${styles.button1}`}>Login In</button>
-            <br />
-            <button onClick={handleSignUpButton} className={`${styles.button} ${styles.button2}`}>Sign Up</button>
         </div>
     );
 }

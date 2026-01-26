@@ -1,14 +1,10 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useRef } from 'react';
 import styles from '../CSS/LoginPage.module.css';
-import img from '../img/img-login-page.png';
-
-//useRef
-import { useRef } from 'react';
 
 //React Icons (Library)
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 
 //Firebase
 import { auth, signInWithEmailAndPassword } from '../firebase';
@@ -78,26 +74,27 @@ function LoginPage() {
 
     return (
         <div className={styles.login_page_div}>
-            <div className={styles.image_div}>
-                <img className={styles.image} src={img} alt="" />
-            </div>
+            <div className={styles.card_container}>
+                <div className={styles.header}>
+                    <div className={styles.icon_circle}>
+                        <FaUser />
+                    </div>
+                    <h2 className={styles.heading}>Welcome Back</h2>
+                    <p className={styles.para}>
+                        Login to continue
+                    </p>
+                </div>
 
-            <h2 className={styles.heading}>Login</h2>
-            <p className={styles.para}>
-                Hello, wecome back!
-            </p>
-
-            <form style={{width:"100%"}} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
                 <div className={styles.input_div}>
-                    <MdEmail color='black' size={20} />
-                    <input required ref={emailRef} className={styles.input_field} placeholder="Email ID" type="email" name="" id="email" />
+                    <MdEmail />
+                    <input required ref={emailRef} className={styles.input_field} placeholder="Email Address" type="email" name="" id="email" />
                 </div>
 
                 <div className={styles.input_div}>
-                    <RiLockPasswordFill color='black' size={20} />
+                    <RiLockPasswordFill />
                     <input required ref={passwordRef} className={styles.input_field} placeholder="Password" type="password" name="" id="password" />
-                    
                 </div>
 
                 <div className={styles.forgot_password_div}>
@@ -106,12 +103,12 @@ function LoginPage() {
 
                 <button className={styles.button}>Login</button>
 
-            </form>
+                </form>
 
-            <p className={`${styles.para} ${styles.para2}`}>
-                Don't have an account? <span onClick={handleSignupPage} className={styles.anchor_tag}>Sign Up</span>
-            </p>
-
+                <p className={`${styles.para} ${styles.para2}`}>
+                    Don't have an account? <span onClick={handleSignupPage} className={styles.anchor_tag}>Sign Up</span>
+                </p>
+            </div>
         </div>
     );
 }

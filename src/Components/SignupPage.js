@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import styles from '../CSS/SignupPage.module.css';
-import img from '../img/img-signup-page.png';
 
 //React Icons (Library)
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
 
 //Firebase 
 import { auth, createUserWithEmailAndPassword, sendEmailVerification } from '../firebase';
@@ -75,40 +75,42 @@ function SignupPage() {
 
     return (
         <div className={styles.signup_page_div}>
-            <div className={styles.image_div}>
-                <img className={styles.image} src={img} alt="" />
-            </div>
+            <div className={styles.card_container}>
+                <div className={styles.header}>
+                    <div className={styles.icon_circle}>
+                        <FaUser />
+                    </div>
+                    <h2 className={styles.heading}>Create Account</h2>
+                    <p className={styles.para}>
+                        Sign up to get started
+                    </p>
+                </div>
 
-            <h2 className={styles.heading}>Sign Up</h2>
-            <p className={styles.para}>
-                Hello, welcome back!
-            </p>
-
-            <form style={{width: "100%"}} onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
                 <div className={styles.input_div}>
-                    <MdEmail color='black' size={20} />
-                    <input required ref={emailRef} className={styles.input_field} placeholder="Email ID" type="email" name="" id="email" />
+                    <MdEmail />
+                    <input required ref={emailRef} className={styles.input_field} placeholder="Email Address" type="email" name="" id="email" />
                 </div>
 
                 <div className={styles.input_div}>
-                    <RiLockPasswordFill color='black' size={20} />
+                    <RiLockPasswordFill />
                     <input required ref={passwordRef} className={styles.input_field} placeholder="Password" type="password" name="" id="password" />
                 </div>
 
                 <div className={styles.input_div}>
-                    <RiLockPasswordLine color='black' size={20} />
+                    <RiLockPasswordLine />
                     <input required ref={confirmPasswordRef} className={styles.input_field} placeholder="Confirm Password" type="password" name="" id="confirm_password" />
                 </div>
 
                 <button type='submit' className={styles.button}>Sign Up </button>
 
-            </form>
+                </form>
 
-            <p className={`${styles.para} ${styles.para2}`}>
-                Already have account? <span onClick={handleNavigateLoginPage} className={styles.anchor_tag}>Login</span>
-            </p>
-
+                <p className={`${styles.para} ${styles.para2}`}>
+                    Already have an account? <span onClick={handleNavigateLoginPage} className={styles.anchor_tag}>Login</span>
+                </p>
+            </div>
         </div>
     );
 }

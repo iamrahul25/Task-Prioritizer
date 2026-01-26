@@ -1,70 +1,32 @@
 .home_page_div {
-    background-color: #13263f;
-    color: white;
-
-    padding: 20px 15px;
-
-    border-radius: 15px;
-
-    max-width: 270px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #eff6ff, #ffffff, #faf5ff);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
 
-    max-height: 550px;
-    height: 100%;
-
+.home_page_div .card_container {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-
-    box-shadow: 7px 9px 10px 1px rgba(7, 0, 0, 0.2);
-}
-
-.home_page_div .heading {
-    font-size: 24px;
-    margin-bottom: 15px;
-    margin-top: 10px;
-}
-
-.home_page_div .heading::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 5px;
-    background-color: darkorange;
-    margin: 5px 50px;
-}
-
-.home_page_div .para {
-    font-size: 14px;
-    margin: 5px 10px;
-    margin-bottom: 20px;
-}
-
-.home_page_div .button {
-    font-weight: bold;
-    width: 100%;
-
-    padding: 10px 20px;
-    margin-bottom: -8px;
-
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.home_page_div .button:hover {
-    border: 2px solid black;
-}
-
-.home_page_div .button1 {
-    background-color: #05adad;
-    border: 2px solid #05adad;
-}
-
-.home_page_div .button2 {
-    background-color: #f4e4c7;
-    border: 2px solid #f4e4c7;
+    text-align: center;
+    gap: 24px;
 }
 
 .home_page_div .image_div {
@@ -72,9 +34,85 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 8px;
 }
 
 .home_page_div .image {
+    max-width: 280px;
     width: 100%;
     height: auto;
+    border-radius: 12px;
+}
+
+.home_page_div .heading {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    background: linear-gradient(to right, #3b82f6, #9333ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.home_page_div .heading::after {
+    display: none;
+}
+
+.home_page_div .para {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #6b7280;
+    margin: 0;
+}
+
+.home_page_div .buttons_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.home_page_div .button {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.home_page_div .button1 {
+    background: linear-gradient(to right, #3b82f6, #9333ea);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+.home_page_div .button1:hover {
+    background: linear-gradient(to right, #2563eb, #7e22ce);
+    transform: scale(1.02);
+    box-shadow: 0 12px 20px -3px rgba(59, 130, 246, 0.4);
+}
+
+.home_page_div .button1:active {
+    transform: scale(0.98);
+}
+
+.home_page_div .button2 {
+    background-color: white;
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
+}
+
+.home_page_div .button2:hover {
+    background-color: #eff6ff;
+    transform: scale(1.02);
+}
+
+.home_page_div .button2:active {
+    transform: scale(0.98);
 }
