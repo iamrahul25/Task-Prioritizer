@@ -54,8 +54,13 @@ function TaskListPage({title, taskArray}) {
 
     return (
         <div className={styles.task_list_page}>
-
-            <h2>{title} ({taskList.length})</h2>
+            <div>
+                <h2>{title}</h2>
+                <div className={styles.header_info}>
+                    <span className={styles.count_badge}>{taskList.length}</span>
+                    <p className={styles.subtitle}>tasks {title === "Completed" ? "completed" : title === "Not Completed" ? "pending completion" : "found"}</p>
+                </div>
+            </div>
 
             <div className={styles.task_list_container}>
                 {/* Loop through taskList and display each task in a card */}

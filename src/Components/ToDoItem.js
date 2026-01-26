@@ -2,6 +2,9 @@
 import { useState, react } from 'react';
 import styles from '../CSS/ToDoItem.module.css';
 
+//React Icons
+import { FaCalendarAlt, FaClock, FaExclamationCircle, FaTag, FaCheckCircle, FaTrash, FaEdit } from 'react-icons/fa';
+
 //Context API
 import { TaskContext, useTaskContext } from '../Context/ContextAPI';
 import DashboardPage from './DashboardPage';
@@ -95,98 +98,151 @@ function ToDoItem({ task }) {
         return daysDifference;
     }
 
+    // Get priority class
+    const getPriorityClass = (priority) => {
+        if (priority >= 1000) return 'critical';
+        if (priority >= 500) return 'high';
+        if (priority >= 100) return 'medium';
+        return 'low';
+    };
+
+    // Get priority label
+    const getPriorityLabel = (priority) => {
+        if (priority >= 1000) return 'Critical';
+        if (priority >= 500) return 'High';
+        if (priority >= 100) return 'Medium';
+        return 'Low';
+    };
+
+
+    const priorityClass = getPriorityClass(task.priority);
+    const priorityLabel = getPriorityLabel(task.priority);
 
     return (
+        <div className={styles.task_div}>
+            <div className={`${styles.priority_banner} ${styles[priorityClass]}`}></div>
+            
+            <div className={styles.task_content}>
+                <h3>{task.task.length > 65 ? task.task.substring(0, 65) + "..." : task.task}</h3>
 
-        <div>
+                <div className={styles.details_grid}>
+                    {/* Priority */}
+                    <div className={styles.detail_row}>
+                        <div className={styles.detail_label}>
+                            <FaExclamationCircle />
+                            <span>Priority:</span>
+                        </div>
+                        <div className={styles.priority_badge}>
+                            <span className={`${styles.priority_label} ${styles[priorityClass]}`}>
+                                {priorityLabel}
+                            </span>
+                            <span className={styles.priority_number}>({task.priority})</span>
+                        </div>
+                    </div>
 
-            <div className={styles.task_div}>
+                    {/* Duration */}
+                    <div className={styles.detail_row}>
+                        <div className={styles.detail_label}>
+                            <FaClock />
+                            <span>Duration:</span>
+                        </div>
+                        <span className={styles.detail_value}>{task.duration} hours</span>
+                    </div>
 
-                <h3> {task.task.length > 65 ? task.task.substring(0, 65) + "..." : task.task} </h3>
+                    {/* Date Created */}
+                    <div className={styles.detail_row}>
+                        <div className={styles.detail_label}>
+                            <FaCalendarAlt />
+                            <span>Date Created:</span>
+                        </div>
+                        <span className={styles.detail_value}>{formatDate(task.dateString)}</span>
+                    </div>
 
-                <table>
+                    {/* Deadline */}
+                    <div className={styles.detail_row}>
+                        <div className={styles.detail_label}>
+                            <FaCalendarAlt />
+                            <span>Deadline:</span>
+                        </div>
+                        <span className={`${styles.detail_value} ${styles.deadline}`}>{formatDate(task.deadline)}</span>
+                    </div>
 
-                    <tbody>
+                    {/* Time taken (if completed) */}
+                    {task.taskDone && (
+                        <div className={styles.detail_row}>
+                            <div className={styles.detail_label}>
+                                <FaClock />
+                                <span>Time taken:</span>
+                            </div>
+                            <span className={styles.detail_value}>{calculateDaysBetween(task.dateString, task.dateOfCompletion)} Days</span>
+                        </div>
+                    )}
 
-                        {/* <tr>
-                        <td> <strong> Description: </strong> </td>
-                        <td> <span> This is a task created by Rahul. </span> </td>
-                    </tr>  */}
+                    {/* Importance/Urgency */}
+                    <div className={styles.detail_row}>
+                        <div className={styles.detail_label}>
+                            <span>Imp or Urgent:</span>
+                        </div>
+                        <div className={styles.keywords_div}>
+                            {task.impAndUrgNo === 1 && (
+                                <>
+                                    <span className={styles.span_urgent}>Urgent</span>
+                                    <span className={styles.span_important}>Important</span>
+                                </>
+                            )}
+                            {task.impAndUrgNo === 2 && (
+                                <>
+                                    <span className={styles.span_urgent}>Urgent</span>
+                                    <span className={styles.span_not_important}>Not Important</span>
+                                </>
+                            )}
+                            {task.impAndUrgNo === 3 && (
+                                <>
+                                    <span className={styles.span_not_urgent}>Not Urgent</span>
+                                    <span className={styles.span_important}>Important</span>
+                                </>
+                            )}
+                            {task.impAndUrgNo === 4 && (
+                                <>
+                                    <span className={styles.span_not_urgent}>Not Urgent</span>
+                                    <span className={styles.span_not_important}>Not Important</span>
+                                </>
+                            )}
+                        </div>
+                    </div>
 
-                        <tr>
-                            <td> <strong> Priority: </strong> </td>
-                            <td> <span> {task.priority} </span> </td>
-                        </tr>
-
-                        <tr>
-                            <td> <strong> Duration: </strong> </td>
-                            <td> <span> {task.duration} hours </span> </td>
-                        </tr>
-
-                        <tr>
-                            <td> <strong> Date Created: </strong> </td>
-                            <td> <span> {formatDate(task.dateString)} </span> </td>
-                        </tr>
-
-                        <tr>
-                            <td> <strong> Deadline: </strong> </td>
-                            <td> <span> {formatDate(task.deadline)} </span> </td>
-                        </tr>
-
-                        {task.taskDone ?
-                            <tr>
-                                <td> <strong>Time taken</strong></td>
-                                <td> <span> {calculateDaysBetween(task.dateString, task.dateOfCompletion)} Days</span> </td>
-                            </tr>
-
-                            : null}
-
-                        <tr>
-                            <td> <strong> Imp or Urgent</strong> </td>
-                            <td>
-                                <div className={styles.keywords_div}>
-
-                                    {task.impAndUrgNo === 1 && <> <span className={styles.span_urgent}> Urgent </span> <span className={styles.span_important}> Important </span> </>}
-
-                                    {task.impAndUrgNo === 2 && <> <span className={styles.span_urgent}> Urgent </span> <span className={styles.span_not_important}> Not Important </span> </>}
-
-                                    {task.impAndUrgNo === 3 && <> <span className={styles.span_not_urgent}> Not Urgent </span> <span className={styles.span_important}> Important </span> </>}
-
-                                    {task.impAndUrgNo === 4 && <> <span className={styles.span_not_urgent}> Not Urgent </span> <span className={styles.span_not_important}> Not Important </span> </>}
-
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td> <strong> Keywords: </strong> </td>
-                            <td>
-                                <div className={styles.keywords_div}>
-                                    {task.keywords.map((keyword, index) => {
-                                        return (
-                                            <span key={index} className={styles.span_keywords}> {keyword} </span>
-                                        );
-                                    })}
-                                </div>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-                <div className={styles.buttons_div}>
-                    <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.button1}> {task.taskDone ? "Undone" : "Done"} </button>
-                    <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.button2}> Delete</button>
-                    <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.button3}> Edit</button>
+                    {/* Keywords */}
+                    {task.keywords && task.keywords.length > 0 && (
+                        <div className={styles.detail_row}>
+                            <div className={styles.detail_label}>
+                                <FaTag />
+                                <span>Keywords:</span>
+                            </div>
+                            <div className={styles.keywords_div}>
+                                {task.keywords.map((keyword, index) => (
+                                    <span key={index} className={styles.span_keywords}>{keyword}</span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
+                <div className={styles.buttons_div}>
+                    <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.button1}>
+                        <FaCheckCircle />
+                        {task.taskDone ? "Undone" : "Done"}
+                    </button>
+                    <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.button2}>
+                        <FaTrash />
+                        Delete
+                    </button>
+                    <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.button3}>
+                        <FaEdit />
+                        Edit
+                    </button>
+                </div>
             </div>
-
-
-
         </div>
-
     );
 }
 
