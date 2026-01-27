@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 
 import styles from '../CSS/DashboardPage.module.css';
 import style2 from '../CSS/SearchTaskPage.module.css';
+import taskListStyles from '../CSS/TaskListPage.module.css';
 
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTh, FaTable } from "react-icons/fa";
 
 //Firebase
 import { auth } from '../firebase';
@@ -19,6 +20,7 @@ function DashboardPage() {
     //Context API
     const { showPages, setShowPages, allTasks, setAllTasks, lengthOfTasks, setLengthOfTasks, filteredTaskList, setFilteredTaskList } = useTaskContext();
     const [taskType, setTaskType] = useState("Not Completed");
+    const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'table'
 
     const handleLogout = () => {
         // console.log("Log Out Clicked!");
@@ -203,6 +205,22 @@ function DashboardPage() {
                         <div className={styles.task_types_items}>
                             <button onClick={handleLogout} className={styles.button3}> Log Out </button>
                             <button onClick={handleDownloadJSON} className={styles.button4}>Download JSON</button>
+                            <div className={taskListStyles.view_toggle}>
+                                <button 
+                                    className={`${taskListStyles.view_button} ${viewMode === 'grid' ? taskListStyles.active : ''}`}
+                                    onClick={() => setViewMode('grid')}
+                                    title="Grid View"
+                                >
+                                    <FaTh />
+                                </button>
+                                <button 
+                                    className={`${taskListStyles.view_button} ${viewMode === 'table' ? taskListStyles.active : ''}`}
+                                    onClick={() => setViewMode('table')}
+                                    title="Table View"
+                                >
+                                    <FaTable />
+                                </button>
+                            </div>
                         </div>
 
                     </div>
@@ -244,11 +262,11 @@ function DashboardPage() {
 
 
             <div>
-                {(taskType === "All Tasks") ? <TaskListPage title="All" taskArray={allTasks} /> : null}
-                {(taskType === "Completed") ? <TaskListPage title="Completed" taskArray={allTasks} /> : null}
-                {(taskType === "Not Completed") ? <TaskListPage title="Not Completed" taskArray={allTasks} /> : null}
-                {(taskType === "Not Done on Deadline") ? <TaskListPage title="Not Done on Deadline" taskArray={allTasks} /> : null}
-                {(taskType === "Search") ? <TaskListPage title={"Filtered/Search Task"} taskArray={filteredTaskList} /> : null}
+                {(taskType === "All Tasks") ? <TaskListPage title="All" taskArray={allTasks} viewMode={viewMode} /> : null}
+                {(taskType === "Completed") ? <TaskListPage title="Completed" taskArray={allTasks} viewMode={viewMode} /> : null}
+                {(taskType === "Not Completed") ? <TaskListPage title="Not Completed" taskArray={allTasks} viewMode={viewMode} /> : null}
+                {(taskType === "Not Done on Deadline") ? <TaskListPage title="Not Done on Deadline" taskArray={allTasks} viewMode={viewMode} /> : null}
+                {(taskType === "Search") ? <TaskListPage title={"Filtered/Search Task"} taskArray={filteredTaskList} viewMode={viewMode} /> : null}
             </div>
 
 

@@ -23,7 +23,12 @@
     justify-content: space-between;
     gap: 10px;
     margin: 10px 0;
+    flex-wrap: wrap;
+}
 
+.dashboard_page_div .task_types_items:last-child {
+    justify-content: flex-start;
+    gap: 10px;
 }
 .dashboard_page_div .icon {
     width: 30px;

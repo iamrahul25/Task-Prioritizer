@@ -10,7 +10,7 @@ import { TaskContext, useTaskContext } from '../Context/ContextAPI';
 import DashboardPage from './DashboardPage';
 
 
-function ToDoItem({ task }) {
+function ToDoItem({ task, viewMode = 'grid' }) {
 
     //Context API
     const { showPages, setShowPages, allTasks, setAllTasks, taskToEdit, setTaskToEdit } = useTaskContext();
@@ -118,6 +118,56 @@ function ToDoItem({ task }) {
     const priorityClass = getPriorityClass(task.priority);
     const priorityLabel = getPriorityLabel(task.priority);
 
+    // Get urgency/importance labels
+    const getUrgencyLabel = () => {
+        if (task.impAndUrgNo === 1) return { urgent: 'Urgent', important: 'Important' };
+        if (task.impAndUrgNo === 2) return { urgent: 'Urgent', important: 'Not Important' };
+        if (task.impAndUrgNo === 3) return { urgent: 'Not Urgent', important: 'Important' };
+        return { urgent: 'Not Urgent', important: 'Not Important' };
+    };
+
+    const urgencyLabels = getUrgencyLabel();
+
+    // Table view
+    if (viewMode === 'table') {
+        return (
+            <tr className={`${styles.table_row} ${styles[priorityClass]}`}>
+                <td className={styles.table_cell}>
+                    <div className={styles.table_task_title}>
+                        {task.task.length > 50 ? task.task.substring(0, 50) + "..." : task.task}
+                    </div>
+                </td>
+                <td className={styles.table_cell}>
+                    <span className={`${styles.priority_label} ${styles[priorityClass]}`}>
+                        {priorityLabel} ({task.priority})
+                    </span>
+                </td>
+                <td className={styles.table_cell}>{task.duration} hrs</td>
+                <td className={styles.table_cell}>{formatDate(task.dateString)}</td>
+                <td className={`${styles.table_cell} ${styles.deadline}`}>{formatDate(task.deadline)}</td>
+                <td className={styles.table_cell}>
+                    <span className={task.taskDone ? styles.status_done : styles.status_pending}>
+                        {task.taskDone ? 'Done' : 'Pending'}
+                    </span>
+                </td>
+                <td className={styles.table_cell}>
+                    <div className={styles.table_actions}>
+                        <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.table_button1} title={task.taskDone ? "Undone" : "Done"}>
+                            <FaCheckCircle />
+                        </button>
+                        <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.table_button3} title="Edit">
+                            <FaEdit />
+                        </button>
+                        <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.table_button2} title="Delete">
+                            <FaTrash />
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        );
+    }
+
+    // Grid view (default)
     return (
         <div className={styles.task_div}>
             <div className={`${styles.priority_banner} ${styles[priorityClass]}`}></div>

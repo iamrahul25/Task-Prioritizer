@@ -349,3 +349,121 @@
 .task_div table {
     display: none;
 }
+
+/* Table view styles */
+.table_row {
+    background-color: white;
+}
+
+.table_row.critical {
+    border-left: 4px solid #ef4444;
+}
+
+.table_row.high {
+    border-left: 4px solid #f97316;
+}
+
+.table_row.medium {
+    border-left: 4px solid #3b82f6;
+}
+
+.table_row.low {
+    border-left: 4px solid #166534;
+}
+
+.table_cell {
+    padding: 12px 16px;
+    vertical-align: middle;
+}
+
+.table_task_title {
+    font-weight: 500;
+    color: #111827;
+    max-width: 300px;
+}
+
+.table_actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.table_button1,
+.table_button2,
+.table_button3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.table_button1 {
+    background-color: #16a34a;
+    color: white;
+}
+
+.table_button1:hover {
+    background-color: #15803d;
+}
+
+.table_button2 {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.table_button2:hover {
+    background-color: #fee2e2;
+}
+
+.table_button3 {
+    background-color: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+}
+
+.table_button3:hover {
+    background-color: #dbeafe;
+}
+
+.table_button1 svg,
+.table_button2 svg,
+.table_button3 svg {
+    width: 14px;
+    height: 14px;
+}
+
+.status_done {
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status_pending {
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+@media (max-width: 1024px) {
+    .table_cell {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .table_task_title {
+        max-width: 200px;
+    }
+}

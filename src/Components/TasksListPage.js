@@ -8,7 +8,7 @@ import { TaskContext, useTaskContext } from '../Context/ContextAPI';
 import ToDoItem from './ToDoItem';
 
 
-function TaskListPage({title, taskArray}) {
+function TaskListPage({title, taskArray, viewMode = 'grid'}) {
 
     let taskList; 
 
@@ -62,14 +62,39 @@ function TaskListPage({title, taskArray}) {
                 </div>
             </div>
 
-            <div className={styles.task_list_container}>
-                {/* Loop through taskList and display each task in a card */}
-                {taskList.map((task, index) => {
-                    return (
-                        <ToDoItem task={task} key={index} />
-                    );
-                })}
-            </div>
+            {viewMode === 'grid' ? (
+                <div className={styles.task_list_container}>
+                    {/* Loop through taskList and display each task in a card */}
+                    {taskList.map((task, index) => {
+                        return (
+                            <ToDoItem task={task} key={index} viewMode="grid" />
+                        );
+                    })}
+                </div>
+            ) : (
+                <div className={styles.table_container}>
+                    <table className={styles.task_table}>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Priority</th>
+                                <th>Duration</th>
+                                <th>Date Created</th>
+                                <th>Deadline</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {taskList.map((task, index) => {
+                                return (
+                                    <ToDoItem task={task} key={index} viewMode="table" />
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            )}
         </div>
     );
 }
