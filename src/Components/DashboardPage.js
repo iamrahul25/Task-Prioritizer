@@ -4,7 +4,7 @@ import styles from '../CSS/DashboardPage.module.css';
 import style2 from '../CSS/SearchTaskPage.module.css';
 import taskListStyles from '../CSS/TaskListPage.module.css';
 
-import { FaSearch, FaTh, FaTable } from "react-icons/fa";
+import { Search, LayoutGrid, Table } from "lucide-react";
 
 //Firebase
 import { auth } from '../firebase';
@@ -211,14 +211,14 @@ function DashboardPage() {
                                     onClick={() => setViewMode('grid')}
                                     title="Grid View"
                                 >
-                                    <FaTh />
+                                    <LayoutGrid />
                                 </button>
                                 <button 
                                     className={`${taskListStyles.view_button} ${viewMode === 'table' ? taskListStyles.active : ''}`}
                                     onClick={() => setViewMode('table')}
                                     title="Table View"
                                 >
-                                    <FaTable />
+                                    <Table />
                                 </button>
                             </div>
                         </div>
@@ -228,7 +228,7 @@ function DashboardPage() {
                     <div className={style2.input_form}>
 
                         <div>
-                            <h2> <FaSearch color='darkorange' size={25} />  Search Task </h2>
+                            <h2> <Search color='darkorange' size={25} />  Search Task </h2>
                             <br />
                             <p>Search or Filter tasks!</p>
                         </div>

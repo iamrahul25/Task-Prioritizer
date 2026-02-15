@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import styles from '../CSS/ForgotPasswordPage.module.css';
 import img from '../img/img-forgot-password-page.png';
 
-//React Icons (Library)
-import { MdEmail } from "react-icons/md";
+// Lucide Icons
+import { Mail } from "lucide-react";
 
 //Firebase
 import { auth, sendPasswordResetEmail } from '../firebase';
@@ -47,7 +47,7 @@ function ForgotPasswordPage() {
             </p>
 
             <div className={styles.input_div}>
-                <MdEmail color='black' size={20}/>
+                <Mail color='black' size={20}/>
                 <input ref={emailRef} className={styles.input_field} placeholder="Email ID" type="email" name="" id="email"/>
             </div>
 

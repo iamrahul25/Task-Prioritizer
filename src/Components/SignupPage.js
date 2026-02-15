@@ -1,11 +1,8 @@
 import { useRef } from 'react';
 import styles from '../CSS/SignupPage.module.css';
 
-//React Icons (Library)
-import { MdEmail } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { RiLockPasswordLine } from "react-icons/ri";
-import { FaUser } from "react-icons/fa";
+// Lucide Icons
+import { Mail, Lock, User } from "lucide-react";
 
 //Firebase 
 import { auth, createUserWithEmailAndPassword, sendEmailVerification } from '../firebase';
@@ -78,7 +75,7 @@ function SignupPage() {
             <div className={styles.card_container}>
                 <div className={styles.header}>
                     <div className={styles.icon_circle}>
-                        <FaUser />
+                        <User />
                     </div>
                     <h2 className={styles.heading}>Create Account</h2>
                     <p className={styles.para}>
@@ -89,17 +86,17 @@ function SignupPage() {
                 <form onSubmit={handleSubmit}>
 
                 <div className={styles.input_div}>
-                    <MdEmail />
+                    <Mail />
                     <input required ref={emailRef} className={styles.input_field} placeholder="Email Address" type="email" name="" id="email" />
                 </div>
 
                 <div className={styles.input_div}>
-                    <RiLockPasswordFill />
+                    <Lock />
                     <input required ref={passwordRef} className={styles.input_field} placeholder="Password" type="password" name="" id="password" />
                 </div>
 
                 <div className={styles.input_div}>
-                    <RiLockPasswordLine />
+                    <Lock />
                     <input required ref={confirmPasswordRef} className={styles.input_field} placeholder="Confirm Password" type="password" name="" id="confirm_password" />
                 </div>
 

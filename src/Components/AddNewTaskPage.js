@@ -1,16 +1,39 @@
-import react from 'react';
+import react, { useState } from 'react';
 import styles from '../CSS/AddNewTaskPage.module.css';
-import { IoIosAdd } from "react-icons/io";
-import { FaTasks } from "react-icons/fa";
+import { Plus, ListTodo } from "lucide-react";
 
 //Context API
-import { TaskContext, useTaskContext } from '../Context/ContextAPI';
+import { useTaskContext } from '../Context/ContextAPI';
 
 
 function AddNewTaskPage() {
 
     //Context API
     const { showPages, setShowPages, allTasks, setAllTasks } = useTaskContext();
+
+    // State for sub-tasks
+    const [subTaskInput, setSubTaskInput] = useState("");
+    const [subTasks, setSubTasks] = useState([]);
+
+    const handleAddSubTask = () => {
+        if (subTaskInput.trim() !== "") {
+            setSubTasks([...subTasks, { id: Date.now(), text: subTaskInput, completed: false }]);
+            setSubTaskInput("");
+        }
+    };
+
+    const handleEditSubTask = (id) => {
+        const newText = prompt("Edit your sub-task");
+        if (newText !== null) {
+            setSubTasks(subTasks.map(subTask =>
+                subTask.id === id ? { ...subTask, text: newText } : subTask
+            ));
+        }
+    };
+
+    const handleDeleteSubTask = (id) => {
+        setSubTasks(subTasks.filter(subTask => subTask.id !== id));
+    };
 
 
     const handleSubmitForm = (e) => {
@@ -51,7 +74,7 @@ function AddNewTaskPage() {
         const dateString = year + "-" + month + "-" + day;
         const timeStamp = date.getTime();
 
-        const formValues = { taskDone: false, task, duration, deadline, dateOfCompletion: "", priority, impAndUrgNo, dateString, timeStamp, keywords };
+        const formValues = { taskDone: false, task, duration, deadline, dateOfCompletion: "", priority, impAndUrgNo, dateString, timeStamp, keywords, subTasks };
         // console.log("Form Values:", formValues, "\n");
 
         //Inserting Values into the All Tasks Array
@@ -75,7 +98,7 @@ function AddNewTaskPage() {
         <form onSubmit={handleSubmitForm} className={styles.input_form}>
 
             <div>
-                <h2> <FaTasks color='darkorange' size={25} /> Task Prioritizer </h2>
+                <h2> <ListTodo color='darkorange' size={25} /> Task Prioritizer </h2>
                 <br />
                 <p>Create your new Task!</p>
             </div>
@@ -146,9 +169,28 @@ function AddNewTaskPage() {
                 <br />
             </div>
 
+            <div className={styles.input_field_div}>
+                <label>Sub Tasks</label>
+                <div className={styles.sub_task_input_div}>
+                    <input className={styles.input_field} type="text" value={subTaskInput} onChange={(e) => setSubTaskInput(e.target.value)} placeholder="Eg: Buy groceries" />
+                    <button type='button' onClick={handleAddSubTask} className={styles.sub_task_add_button}>Add</button>
+                </div>
+                <ul className={styles.sub_task_list}>
+                    {subTasks.map(subTask => (
+                        <li key={subTask.id}>
+                            <span>{subTask.text}</span>
+                            <div>
+                                <button type='button' onClick={() => handleEditSubTask(subTask.id)}>Edit</button>
+                                <button type='button' onClick={() => handleDeleteSubTask(subTask.id)}>Delete</button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
             <div className={styles.input_field_div_two_divs}>
                 <button type='submit' className={styles.button1}>
-                    <IoIosAdd />
+                    <Plus />
                     Add Task
                 </button>
 

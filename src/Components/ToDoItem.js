@@ -2,8 +2,8 @@
 import { useState, react } from 'react';
 import styles from '../CSS/ToDoItem.module.css';
 
-//React Icons
-import { FaCalendarAlt, FaClock, FaExclamationCircle, FaTag, FaCheckCircle, FaTrash, FaEdit } from 'react-icons/fa';
+// Lucide Icons
+import { Calendar, Clock, AlertCircle, Tag, CheckCircle, Trash2, Pencil, ClipboardList } from 'lucide-react';
 
 //Context API
 import { TaskContext, useTaskContext } from '../Context/ContextAPI';
@@ -69,6 +69,46 @@ function ToDoItem({ task, viewMode = 'grid' }) {
         //Setting the Task to Edit
         setTaskToEdit(task);
     }
+
+    const handleToggleSubTask = (subTaskId) => {
+        const updatedTasks = allTasks.map(t => {
+            if (t.timeStamp === task.timeStamp) {
+                const updatedSubTasks = t.subTasks.map(st =>
+                    st.id === subTaskId ? { ...st, completed: !st.completed } : st
+                );
+                return { ...t, subTasks: updatedSubTasks };
+            }
+            return t;
+        });
+        setAllTasks(updatedTasks);
+    };
+
+    const handleEditSubTask = (subTaskId) => {
+        const newText = prompt("Edit your sub-task");
+        if (newText !== null) {
+            const updatedTasks = allTasks.map(t => {
+                if (t.timeStamp === task.timeStamp) {
+                    const updatedSubTasks = t.subTasks.map(st =>
+                        st.id === subTaskId ? { ...st, text: newText } : st
+                    );
+                    return { ...t, subTasks: updatedSubTasks };
+                }
+                return t;
+            });
+            setAllTasks(updatedTasks);
+        }
+    };
+
+    const handleDeleteSubTask = (subTaskId) => {
+        const updatedTasks = allTasks.map(t => {
+            if (t.timeStamp === task.timeStamp) {
+                const updatedSubTasks = t.subTasks.filter(st => st.id !== subTaskId);
+                return { ...t, subTasks: updatedSubTasks };
+            }
+            return t;
+        });
+        setAllTasks(updatedTasks);
+    };
 
     //Method to convert: Input: "2024-08-06" to Output: "6 Aug 2024"
     function formatDate(inputDate) {
@@ -153,13 +193,13 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                 <td className={styles.table_cell}>
                     <div className={styles.table_actions}>
                         <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.table_button1} title={task.taskDone ? "Undone" : "Done"}>
-                            <FaCheckCircle />
+                            <CheckCircle />
                         </button>
                         <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.table_button3} title="Edit">
-                            <FaEdit />
+                            <Pencil />
                         </button>
                         <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.table_button2} title="Delete">
-                            <FaTrash />
+                            <Trash2 />
                         </button>
                     </div>
                 </td>
@@ -179,7 +219,7 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                     {/* Priority */}
                     <div className={styles.detail_row}>
                         <div className={styles.detail_label}>
-                            <FaExclamationCircle />
+                            <AlertCircle />
                             <span>Priority:</span>
                         </div>
                         <div className={styles.priority_badge}>
@@ -193,7 +233,7 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                     {/* Duration */}
                     <div className={styles.detail_row}>
                         <div className={styles.detail_label}>
-                            <FaClock />
+                            <Clock />
                             <span>Duration:</span>
                         </div>
                         <span className={styles.detail_value}>{task.duration} hours</span>
@@ -202,7 +242,7 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                     {/* Date Created */}
                     <div className={styles.detail_row}>
                         <div className={styles.detail_label}>
-                            <FaCalendarAlt />
+                            <Calendar />
                             <span>Date Created:</span>
                         </div>
                         <span className={styles.detail_value}>{formatDate(task.dateString)}</span>
@@ -211,7 +251,7 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                     {/* Deadline */}
                     <div className={styles.detail_row}>
                         <div className={styles.detail_label}>
-                            <FaCalendarAlt />
+                            <Calendar />
                             <span>Deadline:</span>
                         </div>
                         <span className={`${styles.detail_value} ${styles.deadline}`}>{formatDate(task.deadline)}</span>
@@ -221,7 +261,7 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                     {task.taskDone && (
                         <div className={styles.detail_row}>
                             <div className={styles.detail_label}>
-                                <FaClock />
+                                <Clock />
                                 <span>Time taken:</span>
                             </div>
                             <span className={styles.detail_value}>{calculateDaysBetween(task.dateString, task.dateOfCompletion)} Days</span>
@@ -265,7 +305,7 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                     {task.keywords && task.keywords.length > 0 && (
                         <div className={styles.detail_row}>
                             <div className={styles.detail_label}>
-                                <FaTag />
+                                <Tag />
                                 <span>Keywords:</span>
                             </div>
                             <div className={styles.keywords_div}>
@@ -275,19 +315,39 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                             </div>
                         </div>
                     )}
+
+                    {/* Sub Tasks */}
+                    {task.subTasks && task.subTasks.length > 0 && (
+                        <div className={styles.detail_row}>
+                            <div className={styles.detail_label}>
+                                <ClipboardList />
+                                <span>Sub Tasks:</span>
+                            </div>
+                            <div className={styles.sub_tasks_div}>
+                                {task.subTasks.map((subTask) => (
+                                    <div key={subTask.id} className={styles.sub_task}>
+                                        <input type="checkbox" checked={subTask.completed} onChange={() => handleToggleSubTask(subTask.id)} />
+                                        <span style={{ textDecoration: subTask.completed ? 'line-through' : 'none' }}>{subTask.text}</span>
+                                        <button onClick={() => handleEditSubTask(subTask.id)}>Edit</button>
+                                        <button onClick={() => handleDeleteSubTask(subTask.id)}>Delete</button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className={styles.buttons_div}>
                     <button onClick={() => { handleMarkAsDone(task.timeStamp) }} className={styles.button1}>
-                        <FaCheckCircle />
+                        <CheckCircle />
                         {task.taskDone ? "Undone" : "Done"}
                     </button>
                     <button onClick={() => { handleDelete(task.timeStamp) }} className={styles.button2}>
-                        <FaTrash />
+                        <Trash2 />
                         Delete
                     </button>
                     <button onClick={() => { handleEdit(task.timeStamp) }} className={styles.button3}>
-                        <FaEdit />
+                        <Pencil />
                         Edit
                     </button>
                 </div>

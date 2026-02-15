@@ -2,8 +2,8 @@ import React from 'react';
 import styles from '../CSS/VerifyEmailPage.module.css';
 import img from '../img/img-verify-email-page.png';
 
-//React Icons (Library)
-import { MdEmail } from "react-icons/md";
+// Lucide Icons
+import { Mail } from "lucide-react";
 
 
 function VerifyEmailPage() {
@@ -19,7 +19,7 @@ function VerifyEmailPage() {
             </p>
 
             <div className={styles.input_div}>
-                <MdEmail color='black' size={20}/>
+                <Mail color='black' size={20}/>
                 <input className={styles.input_field} placeholder="Email ID" type="email" name="" id="email"/>
             </div>
 

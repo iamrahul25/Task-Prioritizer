@@ -33,12 +33,12 @@
 }
 
 .input_field_div .input_field {
-    
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 1px 1px #ccc;
+    flex-grow: 1; /* Make sub-task input take available space */
 }
 
 .input_field_div .input_field:focus{
@@ -89,6 +89,11 @@
     cursor: pointer;
 
     font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
 .input_field_div_two_divs .button1:hover{
@@ -110,3 +115,62 @@
     border: 2px solid #a8a8a8;
     background-color: #ccc;
 }
+
+.sub_task_input_div {
+    display: flex;
+    gap: 10px;
+    align-items: center; /* Added for vertical alignment */
+}
+
+.sub_task_list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.sub_task_list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.sub_task_list li span {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.sub_task_list li div {
+    display: flex;
+    gap: 5px;
+}
+
+.sub_task_list li button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+
+.sub_task_list li button:hover {
+    background-color: #e0e0e0;
+}
+
+.sub_task_input_div .sub_task_add_button {
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: #2563eb; /* Changed color */
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 16px;
+    height: 40px; /* Added height */
+}
+
+.sub_task_input_div .sub_task_add_button:hover {
+    background-color: #1e40af; /* Changed hover color */
+}
+

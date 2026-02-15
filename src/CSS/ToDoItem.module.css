@@ -467,3 +467,41 @@
         max-width: 200px;
     }
 }
+
+.sub_tasks_div {
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f3f4f6;
+}
+
+.sub_task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+.sub_task input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #16a34a;
+}
+
+.sub_task span {
+    flex-grow: 1;
+    color: #374151;
+}
+
+.sub_task button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.sub_task button:hover {
+    color: #111827;
+}
