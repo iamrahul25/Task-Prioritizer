@@ -30,7 +30,8 @@ function EditTaskPage({taskData}) {
     };
 
     const handleEditSubTask = (id) => {
-        const newText = prompt("Edit your sub-task");
+        const subTaskToEdit = subTasks.find(subTask => subTask.id === id);
+        const newText = prompt("Edit your sub-task", subTaskToEdit.text);
         if (newText !== null) {
             setSubTasks(subTasks.map(subTask =>
                 subTask.id === id ? { ...subTask, text: newText } : subTask

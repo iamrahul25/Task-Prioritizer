@@ -19,12 +19,11 @@ function ToDoItem({ task, viewMode = 'grid' }) {
 
     //Methods: 
     const handleDelete = (id) => {
-
-        // console.log("Delete Clicked!", id);
-
-        //Filtering the Task with the given timeStamp
-        const newAllTasks = allTasks.filter((task) => task.timeStamp !== id);
-        setAllTasks(newAllTasks);
+        if (window.confirm("Are you sure you want to delete this task?")) {
+            //Filtering the Task with the given timeStamp
+            const newAllTasks = allTasks.filter((task) => task.timeStamp !== id);
+            setAllTasks(newAllTasks);
+        }
     }
 
     const handleMarkAsDone = (id) => {
@@ -328,8 +327,6 @@ function ToDoItem({ task, viewMode = 'grid' }) {
                                     <div key={subTask.id} className={styles.sub_task}>
                                         <input type="checkbox" checked={subTask.completed} onChange={() => handleToggleSubTask(subTask.id)} />
                                         <span style={{ textDecoration: subTask.completed ? 'line-through' : 'none' }}>{subTask.text}</span>
-                                        <button onClick={() => handleEditSubTask(subTask.id)}>Edit</button>
-                                        <button onClick={() => handleDeleteSubTask(subTask.id)}>Delete</button>
                                     </div>
                                 ))}
                             </div>
